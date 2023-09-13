@@ -90,7 +90,7 @@ static int Examine_memory(char *args) {
   printf("%d\n",num);
   token = strtok(NULL, s);
   int addr = strtol(token+2, NULL, 16);
-  printf("%d\n",addr);
+  printf("%x\n",addr);
   
   for(int i=0;i<num;i++){
     word_t result = paddr_read(addr,4);
