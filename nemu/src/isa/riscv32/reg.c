@@ -23,14 +23,18 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
-void isa_reg_display() {
+void isa_reg_display() {\
+// print GPR
   for(int i=0;i<8;i++){
     for(int j=0;j<4;j++){
       printf("%4s: 0x16%d",regs[4*i+j],cpu.gpr[4*i+j]);
     }
     printf("\n");
           
-        }
+  }
+  // print ps
+  printf("pc:%d",cpu.pc);
+
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
