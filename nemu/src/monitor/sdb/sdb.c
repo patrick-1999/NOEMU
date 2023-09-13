@@ -17,6 +17,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdlib.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -78,18 +79,17 @@ static int info(char *args) {
 
 static int Examine_memory(char *args) {
   // check mem x unit from address y
-   const char s[2] = " ";
-   char *token;
+  const char s[2] = " ";
+  char *token;
    
    /* 获取第一个子字符串 */
-   token = strtok(args, s);
+  token = strtok(args, s);
+  int num = token[0]-48;
+  printf("%d",num);
+  token = strtok(NULL, s);
+  int addr = strtol(token, NULL, 10);
+  printf("%d",addr);
    
-   /* 继续获取其他的子字符串 */
-   while( token != NULL ) {
-      printf( "%s\n", token );
-    
-      token = strtok(NULL, s);
-   }
   
   return 0;
 }
