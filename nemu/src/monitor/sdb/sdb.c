@@ -87,10 +87,10 @@ static int Examine_memory(char *args) {
    /* 获取第一个子字符串 */
   token = strtok(args, s);
   int num = token[0]-48;
-  printf("%d\n",num);
+  // printf("%d\n",num);
   token = strtok(NULL, s);
   int addr = strtol(token+2, NULL, 16);
-  printf("%x\n",addr);
+  // printf("%x\n",addr);
   
   for(int i=0;i<num;i++){
     word_t result = paddr_read(addr+i*4,4);
