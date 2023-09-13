@@ -27,13 +27,13 @@ void isa_reg_display() {\
 // print GPR
   for(int i=0;i<8;i++){
     for(int j=0;j<4;j++){
-      printf("%4s: 0x16%d",regs[4*i+j],cpu.gpr[4*i+j]);
+      printf("%4s: 0x16%x",regs[4*i+j],cpu.gpr[4*i+j]);
     }
     printf("\n");
           
   }
   // print ps
-  printf("pc:%d\n",cpu.pc);
+  printf("pc:%x\n",cpu.pc);
 
 }
 
