@@ -33,7 +33,7 @@ void isa_reg_display() {\
           
   }
   // print ps
-  printf("pc:%16x\n",cpu.pc);
+  printf("pc:0x%016x\n",cpu.pc);
 
 }
 
