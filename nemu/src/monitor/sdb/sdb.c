@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <memory/paddr.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -78,6 +79,7 @@ static int info(char *args) {
 }
 
 static int Examine_memory(char *args) {
+  word_t paddr_read(paddr_t addr, int len);
   // check mem x unit from address y
   const char s[2] = " ";
   char *token;
@@ -89,7 +91,11 @@ static int Examine_memory(char *args) {
   token = strtok(NULL, s);
   int addr = strtol(token+2, NULL, 10);
   printf("%d\n",addr);
-   
+  
+  for(int i=0;i<num;i++){
+    word_t result = paddr_read(addr,4);
+    printf("%d",result);
+  }
   
   return 0;
 }
