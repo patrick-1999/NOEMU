@@ -59,6 +59,21 @@ static int cmd_si(char *args) {
   return 0;
 }
 
+static int info(char *args) {
+  if(args==NULL){
+    printf("lack of args");
+  }else{
+    if (*args=='r'){
+        // printf info of register
+        printf("ax[0]:%d",cpu.gpr[0]);
+    }
+    if (*args=='w'){
+
+    }
+  }
+  
+  return 0;
+}
 
 static int cmd_q(char *args) {
   return -1;
@@ -74,6 +89,7 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "Step", cmd_si },
+  { "info", "info r - print register values; info w - show watch point state", info },
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
