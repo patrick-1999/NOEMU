@@ -76,6 +76,16 @@ static int info(char *args) {
   return 0;
 }
 
+static int Examine_memory(char *args) {
+  // check mem x unit from address y
+  printf("%d,%d",args[0],args[1]);
+  // uint32_t addr = 
+  // int len = 
+  // paddr_read
+  
+  return 0;
+}
+
 static int cmd_q(char *args) {
   return -1;
 }
@@ -91,6 +101,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "Step", cmd_si },
   { "info", "info r - print register values; info w - show watch point state", info },
+  { "x", "Examine memory", Examine_memory },
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
