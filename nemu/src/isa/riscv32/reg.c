@@ -28,6 +28,7 @@ void isa_reg_display() {
     for(int j=0;j<4;j++){
       printf("%s:%d",regs[8*i+j],cpu.gpr[8*i+j]);
     }
+    printf("\n");
           
         }
 }
