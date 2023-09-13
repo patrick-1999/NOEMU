@@ -89,7 +89,7 @@ static int Examine_memory(char *args) {
   int num = token[0]-48;
   printf("%d\n",num);
   token = strtok(NULL, s);
-  int addr = strtol(token+2, NULL, 10);
+  int addr = strtol(token+2, NULL, 16);
   printf("%d\n",addr);
   
   for(int i=0;i<num;i++){
