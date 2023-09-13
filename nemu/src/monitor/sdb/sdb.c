@@ -51,8 +51,9 @@ static int cmd_si(char *args) {
   if(args==NULL){
     cpu_exec(1);
   }else{
-
-    printf("%d",(*args-'0'));
+    int step_num = args[0]-48;
+    // printf("%d",(*args-'0'));
+    cpu_exec(step_num);
   }
   
   return 0;
