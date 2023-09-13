@@ -78,10 +78,18 @@ static int info(char *args) {
 
 static int Examine_memory(char *args) {
   // check mem x unit from address y
-  printf("%d,%d",args[0],args[3]);
-  // uint32_t addr = 
-  // int len = 
-  // paddr_read
+   const char s[2] = " ";
+   char *token;
+   
+   /* 获取第一个子字符串 */
+   token = strtok(args, s);
+   
+   /* 继续获取其他的子字符串 */
+   while( token != NULL ) {
+      printf( "%s\n", token );
+    
+      token = strtok(NULL, s);
+   }
   
   return 0;
 }
