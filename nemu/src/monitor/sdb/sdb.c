@@ -78,7 +78,7 @@ static int info(char *args) {
 
 static int Examine_memory(char *args) {
   // check mem x unit from address y
-  printf("%d,%d",args[0],args[1]);
+  printf("%d,%d",args[0],args[2]);
   // uint32_t addr = 
   // int len = 
   // paddr_read
