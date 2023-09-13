@@ -65,7 +65,8 @@ static int info(char *args) {
   }else{
     if (*args=='r'){
         // printf info of register
-        printf("ax[0]:%d",cpu.gpr[0]);
+        // print gprs
+        isa_reg_display();
     }
     if (*args=='w'){
 
