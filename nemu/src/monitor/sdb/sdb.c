@@ -85,10 +85,10 @@ static int Examine_memory(char *args) {
    /* 获取第一个子字符串 */
   token = strtok(args, s);
   int num = token[0]-48;
-  printf("%d",num);
+  printf("%d\n",num);
   token = strtok(NULL, s);
   int addr = strtol(token, NULL, 10);
-  printf("%d",addr);
+  printf("%d\n",addr);
    
   
   return 0;
