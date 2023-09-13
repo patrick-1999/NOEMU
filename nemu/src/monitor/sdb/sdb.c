@@ -52,7 +52,7 @@ static int cmd_si(char *args) {
     cpu_exec(1);
   }else{
 
-    printf("%d",*args);
+    printf("%d",(*args-'0'));
   }
   
   return 0;
