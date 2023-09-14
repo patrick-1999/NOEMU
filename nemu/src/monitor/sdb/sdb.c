@@ -96,7 +96,6 @@ static int Examine_memory(char *args) {
     word_t result = paddr_read(addr+i*4,4);
     printf("0x%08x: 0x%08x\n",addr,result);
   }
-  printf("\n");
   
   return 0;
 }
