@@ -113,7 +113,7 @@ void watchpoint_display() {
   } else {
     WP *cur = wp_head;
     while (cur) {
-      printf("NO.%d expression : %s, init_value = %x.\n", cur->NO, cur->args, cur->val);
+      printf("NO.%d expression : %s, init_value = %d.\n", cur->NO, cur->args, cur->val);
       cur = cur->next;
     }
   }
