@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <memory/paddr.h>
 #include "sdb.h"
+#include "watchpoint.h"
 
 static int is_batch_mode = false;
 
@@ -52,26 +53,23 @@ static int cmd_c(char *args) {
 static int cmd_si(char *args) {
   if(args==NULL){
     cpu_exec(1);
-  }else{
-    int step_num = args[0]-48;
-    // printf("%d",(*args-'0'));
-    cpu_exec(step_num);
+    isa_reg_display();
+    return 0;
   }
-  
+  cpu_exec(atoi(args));
   return 0;
 }
 
 static int info(char *args) {
   if(args==NULL){
     printf("lack of args");
+    return -1;
   }else{
     if (*args=='r'){
-        // printf info of register
-        // print gprs
         isa_reg_display();
     }
     if (*args=='w'){
-
+        watchpoint_display();
     }
   }
   
@@ -104,6 +102,34 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_p(char *args) {
+  bool success = true;
+  word_t expr_val = expr(args, &success);
+  if (!success) {
+    printf("Bad expression,try again.\n");
+    return 0;
+  }
+  printf("%d\n", expr_val);
+  return expr_val;
+}
+
+
+static int cmd_w(char *args) {
+  bool success = true;
+  WP *new = new_wp();
+  new->args = args;
+  new->val = expr(args, &success);
+  if (!success) {
+    printf("Bad expression,try again.\n");
+    return 0;
+  }
+  return 0;
+}
+static int cmd_d(char *args) {
+  free_wp(atoi(args));
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -113,12 +139,16 @@ static struct {
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
+  { "q", "Exit NEMU", cmd_q },
+  /* TODO: Add more commands */
   { "si", "Step", cmd_si },
   { "info", "info r - print register values; info w - show watch point state", info },
   { "x", "Examine memory", Examine_memory },
-  { "q", "Exit NEMU", cmd_q },
+  { "p", "Evaluate the expression EXPR", cmd_p },
+  { "w", "Set watchpoint", cmd_w },
+  { "d", "Delete watchpoint", cmd_d },
 
-  /* TODO: Add more commands */
+  
 
 };
 
