@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include "watchpoint.h"
 
 static int is_batch_mode = false;
 
@@ -42,9 +43,85 @@ static char* rl_gets() {
   return line_read;
 }
 
+static int info(char *args) {
+  if(args==NULL){
+    printf("lack of args");
+    return -1;
+  }else{
+    if (*args=='r'){
+        isa_reg_display();
+    }
+    if (*args=='w'){
+        watchpoint_display();
+    }
+  }
+  
+  return 0;
+}
+
+
+static int Examine_memory(char *args) {
+  word_t paddr_read(paddr_t addr, int len);
+  // check mem x unit from address y
+  const char s[2] = " ";
+  char *token;
+   
+   /* 获取第一个子字符串 */
+  token = strtok(args, s);
+  int num = token[0]-48;
+  // printf("%d\n",num);
+  token = strtok(NULL, s);
+  int addr = strtol(token+2, NULL, 16);
+  // printf("%x\n",addr);
+  
+  for(int i=0;i<num;i++){
+    int result = paddr_read(addr+i*4,4);
+    printf("0x%08x: 0x%08x\n",addr,result);
+  }
+  
+  return 0;
+}
+
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
+}
+static int cmd_si(char *args) {
+  if(args==NULL){
+    cpu_exec(1);
+    isa_reg_display();
+    return 0;
+  }
+  cpu_exec(atoi(args));
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  bool success = true;
+  WP *new = new_wp();
+  new->args = args;
+  new->val = expr(args, &success);
+  if (!success) {
+    printf("Bad expression,try again.\n");
+    return 0;
+  }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  free_wp(atoi(args));
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  bool success = true;
+  word_t expr_val = expr(args, &success);
+  if (!success) {
+    printf("Bad expression,try again.\n");
+    return 0;
+  }
+  printf("%d\n", expr_val);
+  return expr_val;
 }
 
 
@@ -64,6 +141,13 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "Step", cmd_si },
+  { "info", "info r - print register values; info w - show watch point state", info },
+  { "x", "Examine memory", Examine_memory },
+  { "p", "Evaluate the expression EXPR", cmd_p },
+  { "w", "Set watchpoint", cmd_w },
+  { "d", "Delete watchpoint", cmd_d },
+
 
 };
 
