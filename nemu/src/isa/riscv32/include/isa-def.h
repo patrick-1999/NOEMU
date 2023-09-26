@@ -32,4 +32,11 @@ typedef struct {
 
 #define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
 
+typedef struct {
+  word_t mepc;
+  word_t mstatus;
+  word_t mcause;
+  word_t mtvec;
+} riscv32_CSR_state;
+
 #endif
