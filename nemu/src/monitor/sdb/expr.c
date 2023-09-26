@@ -169,10 +169,10 @@ static bool make_token(char *e) {
               printf("new_token.str[i]:%c\n",new_token.str[i]);
             }
             new_token.str[substr_len] = '\0';
-            printf("new_token.str:%c\n",new_token.str[0]);
-             printf("new_token.str:%c\n",new_token.str[1]);
-              printf("new_token.str:%c\n",new_token.str[2]);
-            printf("new_token.str:%s\n",new_token.str);
+            // printf("new_token.str:%c\n",new_token.str[0]);
+            //  printf("new_token.str:%c\n",new_token.str[1]);
+            //   printf("new_token.str:%c\n",new_token.str[2]);
+            printf("new_token.str:%s ;;;;;;;\n",new_token.str);
             break;
           default: 
             printf("Unknow token type!\n");
