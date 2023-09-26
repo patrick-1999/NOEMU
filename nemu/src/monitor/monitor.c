@@ -126,6 +126,7 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize the simple debugger. */
   init_sdb();
+  IFDEF(CONFIG_MTRACE, Log("CONFIG_MTRACE"));
 
 #ifndef CONFIG_ISA_loongarch32r
   IFDEF(CONFIG_ITRACE, init_disasm(
