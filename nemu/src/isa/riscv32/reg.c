@@ -46,7 +46,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     return cpu.pc;
   }
   for (int i = 1; i < 32; i++) {
-    if (!strcmp(s+1, regs[i])) {
+    if (!strcmp(s, regs[i])) {
       // printf("return others:%x",cpu.gpr[i]);
       return cpu.gpr[i];
     }
