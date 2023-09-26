@@ -131,8 +131,9 @@ void init_monitor(int argc, char *argv[]) {
   init_difftest(diff_so_file, img_size, difftest_port);
 
   /* Initialize elf */
+  printf("elf_file:%s",elf_file);
   parse_elf(elf_file);
-  
+
   /* Initialize the simple debugger. */
   init_sdb();
   // IFDEF(CONFIG_MTRACE, Log("CONFIG_MTRACE"));
