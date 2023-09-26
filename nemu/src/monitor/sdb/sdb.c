@@ -121,7 +121,8 @@ static int cmd_p(char *args) {
     return 0;
   }
   printf("%x\n", expr_val);
-  return expr_val;
+  // return expr_val;
+  return 0;
 }
 
 
