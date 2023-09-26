@@ -120,7 +120,7 @@ static int cmd_p(char *args) {
     printf("Bad expression,try again.\n");
     return 0;
   }
-  printf("%d\n", expr_val);
+  printf("%x\n", expr_val);
   return expr_val;
 }
 
