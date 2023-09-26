@@ -164,7 +164,7 @@ static bool make_token(char *e) {
           case TK_REG :
             new_token.type = TK_REG;
             for (int i = 1; i < substr_len; i++) {
-              new_token.str[i] = substr_start[i];
+              new_token.str[i-1] = substr_start[i];
               printf("substr_start[i]:%c\n",substr_start[i]);
               printf("new_token.str[i]:%c\n",new_token.str[i]);
             }
