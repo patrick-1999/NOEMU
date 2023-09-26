@@ -372,7 +372,7 @@ uint64_t eval(int p, int q, bool *valid) {
         char **ptr = NULL;
         return (word_t)strtol((char *)tokens[p].str, ptr, 16);
     } else if (tokens->type == TK_REG) {
-      printf("reg:%s\n",tokens[p].str);
+      // printf("reg:%s\n",tokens[p].str);
         word_t reg_val = isa_reg_str2val(tokens[p].str, &right_valid);
         if (!right_valid) {
           *valid = false;
