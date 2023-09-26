@@ -150,8 +150,6 @@ static bool make_token(char *e) {
             new_token.type = TK_NUM;
             for (int i = 0; i < substr_len; i++) {
               new_token.str[i] = substr_start[i];
-              printf("substr_start[i]:%c\n",substr_start[i]);
-              printf("new_token.str[i]:%c\n",new_token.str[i]);
             }
             new_token.str[substr_len] = '\0';
             break;
@@ -167,6 +165,8 @@ static bool make_token(char *e) {
             new_token.type = TK_REG;
             for (int i = 1; i < substr_len; i++) {
               new_token.str[i] = substr_start[i];
+              printf("substr_start[i]:%c\n",substr_start[i]);
+              printf("new_token.str[i]:%c\n",new_token.str[i]);
             }
             new_token.str[substr_len] = '\0';
             printf("new_token.str:%s\n",new_token.str);
