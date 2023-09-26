@@ -27,7 +27,7 @@ const char *regs[] = {
 
 void isa_reg_display() {
   for (int i = 0; i < 32; i++) {
-    printf("%3s = 0x%08x\t", regs[i], cpu.gpr[i]);
+    // printf("%3s = 0x%08x\t", regs[i], cpu.gpr[i]);
     if ((i+1) % 4 == 0) {
       printf("\n");
     }
@@ -38,16 +38,16 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
   // printf("reg:%s",s);
     if (!strcmp(s, "0")) {\
-    printf("return $0:%x",cpu.gpr[0]);
+    // printf("return $0:%x",cpu.gpr[0]);
     return cpu.gpr[0];
   }
   if (!strcmp(s, "pc")) {
-    printf("return pc:%x",cpu.pc);
+    // printf("return pc:%x",cpu.pc);
     return cpu.pc;
   }
   for (int i = 1; i < 32; i++) {
     if (!strcmp(s+1, regs[i])) {
-      printf("return others:%x",cpu.gpr[i]);
+      // printf("return others:%x",cpu.gpr[i]);
       return cpu.gpr[i];
     }
   }
