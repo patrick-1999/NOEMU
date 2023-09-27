@@ -28,8 +28,8 @@
 #define Branch branch
 #define Divw div_divw
 #define Ecall ecall_helper
-// #define Csrrs isa_csrrs
-// #define Csrrw isa_csrrw
+#define Csrrs isa_csrrs
+#define Csrrw isa_csrrw
 
 word_t register_addi(word_t imm, int idx);
 word_t jump_jal(int32_t imm, Decode *s, int dest);
@@ -37,8 +37,8 @@ word_t jump_jalr(int32_t imm, Decode *s, uint32_t rs1, int dest);
 word_t cmp_and_return(uint32_t src1, uint32_t imm, int type);
 void branch(uint32_t src1, uint32_t src2, uint32_t imm, Decode *s, int type);
 word_t div_divw(word_t src1, uint32_t src2);
-// word_t isa_csrrs(word_t dest, word_t src1, word_t csr);
-// word_t isa_csrrw(word_t dest, word_t src1, word_t csr);
+word_t isa_csrrs(word_t dest, word_t src1, word_t csr);
+word_t isa_csrrw(word_t dest, word_t src1, word_t csr);
 void ecall_helper(Decode *s);
 
 
@@ -155,8 +155,8 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 111 ????? 01100 11", remu   , R, Reg(dest) = src1 % src2);
   INSTPAT("0000001 ????? ????? 111 ????? 01110 11", remuw  , R, Reg(dest) = SEXT(BITS(src1, 31, 0) % BITS(src2, 31, 0), 32));
   INSTPAT("0000001 ????? ????? 110 ????? 01100 11", rem    , R, Reg(dest) = (int32_t)src1 % (int32_t)src2);
-  // INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, Reg(dest) = Csrrs(dest, src1, imm));
-  // INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, Reg(dest) = Csrrw(dest, src1, imm));
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, Reg(dest) = Csrrs(dest, src1, imm));
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, Reg(dest) = Csrrw(dest, src1, imm));
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, Ecall(s));
   // INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = CSRs.mepc);
 
@@ -299,58 +299,59 @@ word_t div_divw(word_t src1, word_t src2) {
 }
 
 
-// word_t isa_csrrs(word_t dest, word_t src1, word_t csr) {
-//   word_t t = 0;
-//   switch (csr) {
-//     case 0x341:   // mepc
-//       t = CSRs.mepc;
-//       CSRs.mepc = src1 | t;
-//       break;
-//     case 0x342:   // mcause
-//       t = CSRs.mcause;
-//       CSRs.mcause = src1 | t;
-//       break;
-//     case 0x300:   // mstatus
-//       t = CSRs.mstatus;
-//       CSRs.mstatus = src1 | t;
-//       break;
-//     case 0x305:   // mtvec
-//       t = CSRs.mtvec;
-//       CSRs.mtvec = src1 | t;
-//       break;
-//     default:
-//       panic("Unkown csr!");
-//       break;
-//   }
-// // printf("csr: %lx, t: %lx, src1: %lx, dest: %lx, mepc: %lx, mcause: %lx, mstatus: %lx, mtvec: %lx\n", csr, t, src1, dest, CSRs.mepc, CSRs.mcause, CSRs.mstatus, CSRs.mtvec);
-//   return t;
-// }
+word_t isa_csrrs(word_t dest, word_t src1, word_t csr) {
+  word_t t = 0;
+  switch (csr) {
+    case 0x341:   // mepc
+      // t = CSRs.mepc;
+      t = cpu.csr.mepc;
+      cpu.csr.mepc = src1 | t;
+      break;
+    case 0x342:   // mcause
+      t = cpu.csr.mcause;
+      cpu.csr.mcause = src1 | t;
+      break;
+    case 0x300:   // mstatus
+      t = cpu.csr.mstatus;
+      cpu.csr.mstatus = src1 | t;
+      break;
+    case 0x305:   // mtvec
+      t = cpu.csr.mtvec;
+      cpu.csr.mtvec = src1 | t;
+      break;
+    default:
+      panic("Unkown csr!");
+      break;
+  }
+// printf("csr: %lx, t: %lx, src1: %lx, dest: %lx, mepc: %lx, mcause: %lx, mstatus: %lx, mtvec: %lx\n", csr, t, src1, dest, CSRs.mepc, CSRs.mcause, CSRs.mstatus, CSRs.mtvec);
+  return t;
+}
 
-// word_t isa_csrrw(word_t dest, word_t src1, word_t csr) {
-//   word_t t = 0;
-//   switch (csr) {
-//     case 0x341:   // mepc
-//       t = CSRs.mepc;
-//       CSRs.mepc = src1;
-//       break;
-//     case 0x342:   // mcause
-//       t = CSRs.mcause;
-//       CSRs.mcause = src1;
-//       break;
-//     case 0x300:   // mstatus
-//       t = CSRs.mstatus;
-//       CSRs.mstatus = src1;
-//       break;
-//     case 0x305:   // mtvec
-//       t = CSRs.mtvec;
-//       CSRs.mtvec = src1;
-//       break;
-//     default:
-//       panic("Unkown csr!");
-//       break;
-//   }
-//   return t;
-// }
+word_t isa_csrrw(word_t dest, word_t src1, word_t csr) {
+  word_t t = 0;
+  switch (csr) {
+    case 0x341:   // mepc
+      t = cpu.csr.mepc;
+      cpu.csr.mepc = src1;
+      break;
+    case 0x342:   // mcause
+      t = cpu.csr.mcause;
+      cpu.csr.mcause = src1;
+      break;
+    case 0x300:   // mstatus
+      t = cpu.csr.mstatus;
+      cpu.csr.mstatus = src1;
+      break;
+    case 0x305:   // mtvec
+      t = cpu.csr.mtvec;
+      cpu.csr.mtvec = src1;
+      break;
+    default:
+      panic("Unkown csr!");
+      break;
+  }
+  return t;
+}
 
 
 void ecall_helper(Decode *s) {

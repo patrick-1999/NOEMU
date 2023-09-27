@@ -25,8 +25,10 @@
  */
 #define MAX_INST_TO_PRINT 10
 
-CPU_state cpu = {};
-riscv32_CSR_state CSRs = {.mstatus = 0x1800};
+CPU_state cpu = {.csr= {.mstatus = 0x1800}};
+
+// cpu.csr.mstatus = 0x1800;
+// riscv32_CSR_state CSRs = {.mstatus = 0x1800};
 // typedef struct {
 //   word_t mepc=0x1;
 //   word_t mstatus=0x8;
