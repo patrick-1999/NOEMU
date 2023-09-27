@@ -356,9 +356,10 @@ word_t isa_csrrw(word_t dest, word_t src1, word_t csr) {
 
 void ecall_helper(Decode *s) {
 
-  s->dnpc = isa_raise_intr(0xb, cpu.pc);
+  // s->dnpc = isa_raise_intr(0xb, cpu.pc);
+  s->dnpc = isa_raise_intr(-1, cpu.pc);
   // printf("ECALL from PC %02lx to PC:%02lx\n", cpu.pc, s->dnpc);
 }
 
 
-// 0x00e7a023 的二进制是 0000 0000 1110 01111 010 00000 01000 11
+
