@@ -27,7 +27,12 @@
 
 CPU_state cpu = {};
 riscv32_CSR_state CSRs = {.mstatus = 0x1800};
-// // 1010 0000 0000 0000 0000 0001 1000 0000 0000
+// typedef struct {
+//   word_t mepc=0x1;
+//   word_t mstatus=0x8;
+//   word_t mcause=0x0;
+//   word_t mtvec=0x0;
+// } riscv32_CSR_state;
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
