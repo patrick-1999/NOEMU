@@ -13,7 +13,7 @@ Context* __am_irq_handle(Context *c) {
     switch (c->mcause) {
       case 8:
       case Machine_external_interrupt:
-        if (c->gpr[1] == -1) {
+        if (c->gpr[17] == -1) {
           ev.event = EVENT_YIELD;
         } else {
           ev.event = EVENT_SYSCALL;
