@@ -97,6 +97,7 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_w(char *args) {
+  printf("args:%s",args);
   bool success = true;
   WP *new = new_wp();
   new->args = args;
