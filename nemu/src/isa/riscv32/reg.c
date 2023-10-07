@@ -33,6 +33,11 @@ void isa_reg_display() {
     }
   }
   printf("pc = 0x%x\t\n", cpu.pc);
+  printf("mcause:%x",cpu.csr.mcause);
+  printf("mstatus:%x",cpu.csr.mstatus);
+  printf("mepc:%x",cpu.csr.mepc);
+  
+  
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
