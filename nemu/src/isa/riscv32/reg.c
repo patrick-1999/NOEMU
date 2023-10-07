@@ -33,9 +33,9 @@ void isa_reg_display() {
     }
   }
   printf("pc = 0x%x\t\n", cpu.pc);
-  printf("mcause:%x",cpu.csr.mcause);
-  printf("mstatus:%x",cpu.csr.mstatus);
-  printf("mepc:%x",cpu.csr.mepc);
+  printf("mcause:%x\n",cpu.csr.mcause);
+  printf("mstatus:%x\n",cpu.csr.mstatus);
+  printf("mepc:%x\n",cpu.csr.mepc);
   
   
 }
