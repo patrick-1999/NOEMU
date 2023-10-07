@@ -102,6 +102,7 @@ static int cmd_w(char *args) {
   WP *new = new_wp();
   new->args = args;
   new->val = expr(args, &success);
+  printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
     printf("Bad expression,try again.\n");
     return 0;
