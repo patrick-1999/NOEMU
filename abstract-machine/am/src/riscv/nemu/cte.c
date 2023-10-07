@@ -10,10 +10,11 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {
 
   if (user_handler) {
-    printf("has user_handler");
+    printf("has user_handler\n");
     Event ev = {0};
+          printf("c->mcause\n",c->mcause);
     switch (c->mcause) {
-      // printf("c->mcause\n",c->mcause);
+
       case 8:
       case Machine_external_interrupt:
         if (c->gpr[17] == -1) {
