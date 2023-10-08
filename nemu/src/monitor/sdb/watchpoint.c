@@ -79,6 +79,9 @@ WP* new_wp() {
       wp_tail->next = new;
       wp_tail = new;
     }
+    printf("get new node\n");
+    printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
+
     return new;
   } else {
     panic("No more free watch point nodes in wp_pool!\n");
@@ -113,7 +116,6 @@ void watchpoint_display() {
   } else {
     WP *cur = wp_head;
     while (cur) {
-      printf("expr:%s\n",cur->args);
       printf("NO.%d expression : %s, init_value = %d.\n", cur->NO, cur->args, cur->val);
       cur = cur->next;
     }
