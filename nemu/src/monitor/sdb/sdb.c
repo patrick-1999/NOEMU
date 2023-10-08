@@ -100,10 +100,10 @@ static int cmd_w(char *args) {
   printf("args:%s",args);
   bool success = true;
   WP *new = new_wp();
-    printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   new->args = args;
   new->val = expr(args, &success);
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
+  printf("expr:%s\n",new->args);
   if (!success) {
     printf("Bad expression,try again.\n");
     return 0;
