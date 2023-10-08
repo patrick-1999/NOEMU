@@ -15,6 +15,7 @@
 
 #include "sdb.h"
 #include "watchpoint.h"
+#include <string.h>
 
 #define NR_WP 32
 
@@ -121,9 +122,7 @@ void watchpoint_display() {
 
 void wp_watch(char *expr, word_t res) {
   WP* wp = new_wp();
-  // strcpy(wp->args, expr);
-  char str[100]="test";
-  wp->args=str;
+  strcpy(wp->args, expr);
   wp->val = res;
   printf("Watchpoint %d: %s\n", wp->NO, expr);
 }
