@@ -123,6 +123,7 @@ void watchpoint_display() {
 void wp_watch(char *expr, word_t res) {
   WP* wp = new_wp();
   strcpy(wp->args, expr);
+
   wp->val = res;
   printf("Watchpoint %d: %s\n", wp->NO, expr);
 }
