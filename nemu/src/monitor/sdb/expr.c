@@ -333,6 +333,7 @@ int find_master(int p, int q) {
      } else if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ) {
       if (level >= 1) {
         res = i;
+        printf("i:%d\n",i);
         level = 1;
         continue;
       }
