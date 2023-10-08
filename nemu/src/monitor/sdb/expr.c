@@ -219,7 +219,9 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  for (int i=0;i<32;i++){
+    printf("NO%d:%s",i,tokens[i].str);
+  }
   /* TODO: Insert codes to evaluate the expression. */
   word_t expr_value;
   bool valid = true;
@@ -333,7 +335,6 @@ int find_master(int p, int q) {
      } else if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ) {
       if (level >= 1) {
         res = i;
-        printf("i:%d\n",i);
         level = 1;
         continue;
       }
@@ -357,7 +358,6 @@ int find_master(int p, int q) {
       }
      }
   }
-  printf("op_leval:%d\n",level);
   return res;
 }
 
