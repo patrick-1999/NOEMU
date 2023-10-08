@@ -46,7 +46,7 @@ static char* rl_gets() {
 
 static int info(char *args) {
   if(args==NULL){
-    printf("lack of args");
+    printf("lack of args\n");
     // return -1;
   }else{
     if (*args=='r'){
