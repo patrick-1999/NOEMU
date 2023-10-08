@@ -390,6 +390,7 @@ uint64_t eval(int p, int q, bool *valid) {
     return 0;
   } else {
     int op = find_master(p, q);
+    printf("master_op:%d",op);
     assert(op >= p);
     assert(op <= q);
     if (op == p) {
