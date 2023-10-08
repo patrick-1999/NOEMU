@@ -102,6 +102,7 @@ static int cmd_w(char *args) {
   bool success = true;
   WP *new = new_wp();
   // new->args = str;
+  printf("get node\n");
   strcpy(new->args, args);
   new->val = expr(args, &success);
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
