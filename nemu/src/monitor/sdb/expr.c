@@ -220,7 +220,7 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
   for (int i=0;i<32;i++){
-    printf("NO%d:%s",i,tokens[i].str);
+    printf("NO%d:%s\n",i,tokens[i].str);
   }
   /* TODO: Insert codes to evaluate the expression. */
   word_t expr_value;
@@ -391,7 +391,6 @@ uint64_t eval(int p, int q, bool *valid) {
     return 0;
   } else {
     int op = find_master(p, q);
-    printf("master_op:%d",op);
     assert(op >= p);
     assert(op <= q);
     if (op == p) {
