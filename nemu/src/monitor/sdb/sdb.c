@@ -17,6 +17,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <string.h>
 #include "sdb.h"
 #include "watchpoint.h"
 
@@ -95,7 +96,7 @@ static int cmd_si(char *args) {
   cpu_exec(atoi(args));
   return 0;
 }
-
+void wp_watch(char *expr, word_t res);
 static int cmd_w(char *args) {
   // char str[50] = "";
   
@@ -103,8 +104,8 @@ static int cmd_w(char *args) {
   WP *new = new_wp();
   // new->args = str;
   printf("get node\n");
-  strcpy(new->args, args);
-  new->val = expr(args, &success);
+  word_t res = expr(args, &success);
+  wp_watch(args, res);
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
     printf("Bad expression,try again.\n");
