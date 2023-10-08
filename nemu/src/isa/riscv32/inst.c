@@ -222,7 +222,8 @@ word_t jump_jalr(int32_t imm, Decode *s, uint32_t src1, int dest) {
     trace_func_call(s->pc, s->dnpc); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
   }
   })
-  printf("FROM PC %02x JALR to PC:%02x\n",cpu.pc,s->dnpc);
+  // 答应地址跳转的起始和终点
+  // printf("FROM PC %02x JALR to PC:%02x\n",cpu.pc,s->dnpc);
   return s->snpc;
 }
 
