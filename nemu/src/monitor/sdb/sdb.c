@@ -105,7 +105,8 @@ static int cmd_w(char *args) {
   // new->args = str;
   printf("get node\n");
   word_t res = expr(args, &success);
-  new->args="test";
+  char str[20]="test";
+  new->args=str;
   new->val=res;
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
