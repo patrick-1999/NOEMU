@@ -79,9 +79,6 @@ WP* new_wp() {
       wp_tail->next = new;
       wp_tail = new;
     }
-    printf("get new node\n");
-    printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
-
     return new;
   } else {
     panic("No more free watch point nodes in wp_pool!\n");
