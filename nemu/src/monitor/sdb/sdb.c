@@ -101,16 +101,16 @@ static int cmd_w(char *args) {
   bool success = true;
   WP *new = new_wp();
   word_t res = expr(args, &success);
+  if (!success) {
+    printf("Bad expression,try again.\n");
+    return 0;
+  }
   char* buf = (char*)malloc(20);
   memset(buf, 0, 20);
   strcpy(buf, args);
   new->args=buf;
   new->val=res;
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
-  if (!success) {
-    printf("Bad expression,try again.\n");
-    return 0;
-  }
   return 0;
 }
 
