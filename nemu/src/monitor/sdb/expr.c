@@ -95,6 +95,9 @@ static bool make_token(char *e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+        printf("match\n");
+        printf("position:%d\n",position);
+        printf("i:%d\n",i);
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
@@ -219,9 +222,9 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  for(int i=0;i<32;i++){
-    printf("tokens:%s\n",tokens[i].str);
-  }
+  // for(int i=0;i<32;i++){
+  //   printf("tokens:%s\n",tokens[i].str);
+  // }
   /* TODO: Insert codes to evaluate the expression. */
   word_t expr_value;
   bool valid = true;
