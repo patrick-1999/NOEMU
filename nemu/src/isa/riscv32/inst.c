@@ -184,45 +184,45 @@ void trace_func_call(paddr_t pc, paddr_t target);
 void trace_func_ret(paddr_t pc);
 word_t jump_jal(int32_t imm, Decode *s, int dest) {
   s->dnpc = cpu.pc + imm;
-  // #ifdef CONFIG_FTRACE_COND
-  // int is_ret = -1;
-  // char *func_name = get_func_name(s->snpc - 4, s->dnpc, &is_ret);
-  // if (func_name) {
-  //   ftrace_info temp = {func_name, s->dnpc, is_ret, s->snpc - 4};
-  //   call_ret_table[ftrace_index++] = temp;
-  // }
+  #ifdef CONFIG_FTRACE_COND
+  int is_ret = -1;
+  char *func_name = get_func_name(s->snpc - 4, s->dnpc, &is_ret);
+  if (func_name) {
+    ftrace_info temp = {func_name, s->dnpc, is_ret, s->snpc - 4};
+    call_ret_table[ftrace_index++] = temp;
+  }
 
-  // #endif
-  // IFDEF(CONFIG_ITRACE, { 
-  // if (dest == 1) { // x1: return address for jumps
-  //   trace_func_call(s->pc, s->dnpc);
-  // }
-  // })
+  #endif
+  IFDEF(CONFIG_ITRACE, { 
+  if (dest == 1) { // x1: return address for jumps
+    trace_func_call(s->pc, s->dnpc);
+  }
+  })
   return cpu.pc+4;
 }
 
 word_t jump_jalr(int32_t imm, Decode *s, uint32_t src1, int dest) {
   // s->dnpc = (2 * imm + src1) & (~1);
   s->dnpc = (src1 + imm) & (~1);
-  // #ifdef CONFIG_FTRACE_COND
-  // int is_ret = -1;
-  //   char *func_name = get_func_name(s->snpc - 4, s->dnpc, &is_ret);
-  //   if (func_name) {
-  //     assert(is_ret != -1);
-  //     ftrace_info temp = {func_name, s->dnpc, is_ret, s->snpc - 4};
-  //     call_ret_table[ftrace_index++] = temp;
-  //   }
-  // #endif
-  // IFDEF(CONFIG_ITRACE, {
-  // if (s->isa.inst.val == 0x00008067) {
-  //   trace_func_ret(s->pc); // ret -> jalr x0, 0(x1)
-  // } else if (dest == 1) {
-  //   trace_func_call(s->pc, s->dnpc);
-  // } else if (dest == 0 && imm == 0) {
-  //   trace_func_call(s->pc, s->dnpc); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
-  // }
-  // })
-  // printf("FROM PC %02x JALR to PC:%02x\n",cpu.pc,s->dnpc);
+  #ifdef CONFIG_FTRACE_COND
+  int is_ret = -1;
+    char *func_name = get_func_name(s->snpc - 4, s->dnpc, &is_ret);
+    if (func_name) {
+      assert(is_ret != -1);
+      ftrace_info temp = {func_name, s->dnpc, is_ret, s->snpc - 4};
+      call_ret_table[ftrace_index++] = temp;
+    }
+  #endif
+  IFDEF(CONFIG_ITRACE, {
+  if (s->isa.inst.val == 0x00008067) {
+    trace_func_ret(s->pc); // ret -> jalr x0, 0(x1)
+  } else if (dest == 1) {
+    trace_func_call(s->pc, s->dnpc);
+  } else if (dest == 0 && imm == 0) {
+    trace_func_call(s->pc, s->dnpc); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
+  }
+  })
+  printf("FROM PC %02x JALR to PC:%02x\n",cpu.pc,s->dnpc);
   return s->snpc;
 }
 
