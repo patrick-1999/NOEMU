@@ -167,7 +167,6 @@ static bool make_token(char *e) {
               new_token.str[i-1] = substr_start[i];
             }
             new_token.str[substr_len] = '\0';
-            printf("find_new_token:%s\n",new_token.str);
             break;
           default: 
             printf("Unknow token type!\n");
@@ -219,9 +218,6 @@ word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
-  }
-  for (int i=0;i<32;i++){
-    printf("NO%d:%s\n",i,tokens[i].str);
   }
   /* TODO: Insert codes to evaluate the expression. */
   word_t expr_value;
