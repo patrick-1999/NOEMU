@@ -104,11 +104,7 @@ static int cmd_w(char *args) {
   char* buf = (char*)malloc(20);
   memset(buf, 0, 20);
   strcpy(buf, args);
-
-  // char str[20]="default";
-  // strcpy(str,args);
   new->args=buf;
-  // strcpy(new->args,str);
   new->val=res;
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
