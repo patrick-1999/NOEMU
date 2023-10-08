@@ -41,14 +41,21 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-  // printf("reg:%s",s);
+
     if (!strcmp(s, "0")) {\
-    // printf("return $0:%x",cpu.gpr[0]);
     return cpu.gpr[0];
   }
   if (!strcmp(s, "pc")) {
-    // printf("return pc:%x",cpu.pc);
     return cpu.pc;
+  }
+  if (!strcmp(s, "mcause")) {
+    return cpu.csr.mcause;
+  }
+  if (!strcmp(s, "mstatus")) {
+    return cpu.csr.mstatus;
+  }
+  if (!strcmp(s, "mepc")) {
+    return cpu.csr.mepc;
   }
   for (int i = 1; i < 32; i++) {
     if (!strcmp(s, regs[i])) {
@@ -57,5 +64,6 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     }
   }
   *success = false;
+  printf("reg unknow!\n");
   return 0;
 }
