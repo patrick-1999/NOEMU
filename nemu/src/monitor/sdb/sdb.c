@@ -97,11 +97,12 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_w(char *args) {
-  char str[50] = "";
-  strcpy(str, args);
+  // char str[50] = "";
+  
   bool success = true;
   WP *new = new_wp();
-  new->args = str;
+  // new->args = str;
+  strcpy(new->args, args);
   new->val = expr(args, &success);
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
