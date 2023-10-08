@@ -105,7 +105,8 @@ static int cmd_w(char *args) {
   // new->args = str;
   printf("get node\n");
   word_t res = expr(args, &success);
-  wp_watch(args, res);
+  new->args="test";
+  new->val=res;
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
     printf("Bad expression,try again.\n");
