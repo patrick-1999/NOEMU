@@ -97,7 +97,8 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_w(char *args) {
-  char* str = args;
+  char str[50] = "";
+  memcpy(str, args, strlen(args)+1);
   bool success = true;
   WP *new = new_wp();
   new->args = str;
