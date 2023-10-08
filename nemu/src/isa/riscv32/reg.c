@@ -64,6 +64,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     }
   }
   *success = false;
-  printf("reg<%s>reg unknow!\n",s);
+  printf("<%s>reg unknow!\n",s);
+  printf("cmp%d\n",!strcmp(s, "mcause"));
   return 0;
 }
