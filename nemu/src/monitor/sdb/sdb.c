@@ -47,7 +47,7 @@ static char* rl_gets() {
 static int info(char *args) {
   if(args==NULL){
     printf("lack of args");
-    return -1;
+    // return -1;
   }else{
     if (*args=='r'){
         isa_reg_display();
