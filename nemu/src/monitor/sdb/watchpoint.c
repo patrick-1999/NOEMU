@@ -95,7 +95,7 @@ bool check_wp() {
   WP *cur = wp_head;
   bool success = true;
   while (cur) {
-    printf("check expr:%s",cur->args);
+    printf("check expr:%s\n",cur->args);
     if (cur->val != expr(cur->args, &success)) {
       if (!success) {
         printf("Bad expression,try again.\n");
