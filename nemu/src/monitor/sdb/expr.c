@@ -169,6 +169,7 @@ static bool make_token(char *e) {
             printf("substr_len:%d\n",substr_len);
             for (int i = 1; i < substr_len; i++) {
               new_token.str[i-1] = substr_start[i];
+              printf("substr_start:%c\n",substr_start[i]);
             }
             new_token.str[substr_len] = '\0';
             printf("new_token.str:%s\n",new_token.str);
