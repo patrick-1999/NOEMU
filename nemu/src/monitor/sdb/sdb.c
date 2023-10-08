@@ -98,12 +98,8 @@ static int cmd_si(char *args) {
 }
 void wp_watch(char *expr, word_t res);
 static int cmd_w(char *args) {
-  // char str[50] = "";
-  
   bool success = true;
   WP *new = new_wp();
-  // new->args = str;
-  printf("get node\n");
   word_t res = expr(args, &success);
   char str[20]="default";
   strcpy(str,args);
