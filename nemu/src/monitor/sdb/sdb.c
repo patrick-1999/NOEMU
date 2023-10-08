@@ -103,7 +103,8 @@ static int cmd_w(char *args) {
   word_t res = expr(args, &success);
   char str[20]="default";
   strcpy(str,args);
-  new->args=str;
+  // new->args=str;
+  strcpy(new->args,str);
   new->val=res;
   printf("add watch point :NO.%d expression : %s, init_value = %d.\n", new->NO, new->args, new->val);
   if (!success) {
