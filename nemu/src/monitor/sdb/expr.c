@@ -219,6 +219,9 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  for(int i=0;i<32;i++){
+    printf("tokens:%s\n",tokens[i].str);
+  }
   /* TODO: Insert codes to evaluate the expression. */
   word_t expr_value;
   bool valid = true;
