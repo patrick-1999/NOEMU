@@ -158,7 +158,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, Reg(dest) = Csrrs(dest, src1, imm));
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, Reg(dest) = Csrrw(dest, src1, imm));
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, Ecall(s));
-  // INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = CSRs.mepc);
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr.mepc );
 
   //       0000000 01110 01111 010 00000 01000 11 
   //          0      14    15   2   0      8   3
