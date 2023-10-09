@@ -4,10 +4,14 @@
 
 #define Machine_external_interrupt 0xb
 
-
+// uintptr_t mepc, mstatus, mcause, gpr[NR_REGS] ;
+//   void *pdir;
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
+  printf("mepc:%x\n",c->mepc);
+  printf("mstatus:%x\n",c->mstatus);
+  printf("mcause:%x\n",c->mcause);
   if (user_handler) {
     Event ev = {0};
     // printf("c->mcause:%x\n",c->mcause);
