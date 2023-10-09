@@ -91,8 +91,8 @@ CFLAGS   += -O2 -MMD -Wall -Werror $(INCFLAGS) \
 CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  += -MMD $(INCFLAGS)
 # 原本的不需要添加库文件的链接参数
-# LDFLAGS  += -z noexecstack 
-LDFLAGS  +=  -z noexecstack -lc -lm -L/home/rlk/Desktop/riscv/sysroot/lib   -rpath=/home/rlk/Desktop/riscv/sysroot/lib 
+LDFLAGS  += -z noexecstack 
+# LDFLAGS  +=  -z noexecstack -lc -lm -L/home/rlk/Desktop/riscv/sysroot/lib   -rpath=/home/rlk/Desktop/riscv/sysroot/lib 
 
 ## 4. Arch-Specific Configurations
 
