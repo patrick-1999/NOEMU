@@ -95,9 +95,9 @@ static bool make_token(char *e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        printf("match\n");
-        printf("position:%d\n",position);
-        printf("i:%d\n",i);
+        // printf("match\n");
+        // printf("position:%d\n",position);
+        // printf("i:%d\n",i);
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
@@ -166,14 +166,14 @@ static bool make_token(char *e) {
             break;
           case TK_REG :
             new_token.type = TK_REG;
-            printf("substr_len:%d\n",substr_len);
+            // printf("substr_len:%d\n",substr_len);
             for (int i = 1; i < substr_len; i++) {
               new_token.str[i-1] = substr_start[i];
-              printf("substr_start:%c\n",substr_start[i]);
+              // printf("substr_start:%c\n",substr_start[i]);
             }
             new_token.str[substr_len-1] = '\0';
-            printf("substr_start:%c\n",substr_start[substr_len]);
-            printf("new_token.str:%s\n",new_token.str);
+            // printf("substr_start:%c\n",substr_start[substr_len]);
+            // printf("new_token.str:%s\n",new_token.str);
             break;
           default: 
             printf("Unknow token type!\n");
