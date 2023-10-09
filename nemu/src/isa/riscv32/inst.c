@@ -342,6 +342,9 @@ word_t isa_csrrw(word_t dest, word_t src1, word_t csr) {
     case 0x300:   // mstatus
       t = cpu.csr.mstatus;
       cpu.csr.mstatus = src1;
+      printf("cpu.csr.mstatus = src1\n");
+      printf("cpu.csr.mstatus = %x\n",cpu.csr.mstatus);
+      printf("src1 = %x\n",src1);
       break;
     case 0x305:   // mtvec
       t = cpu.csr.mtvec;
