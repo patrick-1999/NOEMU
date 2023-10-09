@@ -77,7 +77,7 @@ static int Examine_memory(char *args) {
   
   for(int i=0;i<num;i++){
     int result = paddr_read(addr+i*4,4);
-    printf("0x%08x: 0x%08x\n",addr,result);
+    printf("0x%08x: 0x%08x\n",addr+i*4,result);
   }
   
   return 0;
