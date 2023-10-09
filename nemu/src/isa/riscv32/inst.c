@@ -180,6 +180,7 @@ int isa_exec_once(Decode *s) {
 word_t register_addi(word_t imm, int idx) {
   return cpu.gpr[check_reg_idx(idx)] + imm;
 }
+
 void trace_func_call(paddr_t pc, paddr_t target);
 void trace_func_ret(paddr_t pc);
 word_t jump_jal(int32_t imm, Decode *s, int dest) {
@@ -191,7 +192,6 @@ word_t jump_jal(int32_t imm, Decode *s, int dest) {
     ftrace_info temp = {func_name, s->dnpc, is_ret, s->snpc - 4};
     call_ret_table[ftrace_index++] = temp;
   }
-
   #endif
   IFDEF(CONFIG_ITRACE, { 
   if (dest == 1) { // x1: return address for jumps
