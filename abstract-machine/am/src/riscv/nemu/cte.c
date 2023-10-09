@@ -16,12 +16,21 @@ Context* __am_irq_handle(Context *c) {
     switch (c->mcause) {
       case 8:
       case Machine_external_interrupt:
+      // 通过查阅<man 2 syscall>可以知道
+      // riscv: 
+      // system call:a7 
+      // ret val:a1 
+      // ret val2:a2
         if (c->gpr[17] == -1) {
+          // 如果没有系统调用好是自陷
           ev.event = EVENT_YIELD;
         } else {
+          // 如果有系统调用号就是系统调用
           ev.event = EVENT_SYSCALL;
         }
         c->mepc += 4;     // skip the instruction that caused the trap
+        // 根据造成这个ecall的成因判断是否需要给PC+4
+        // 有的时候例如缺页异常需要回到原来的指令执行就不用+4,如果要跳过触发异常的指令就可以+4
         break;
       default: ev.event = EVENT_ERROR; break;
     }
