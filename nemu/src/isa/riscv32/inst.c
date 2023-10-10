@@ -204,6 +204,7 @@ word_t jump_jal(int32_t imm, Decode *s, int dest) {
 word_t jump_jalr(int32_t imm, Decode *s, uint32_t src1, int dest) {
   // s->dnpc = (2 * imm + src1) & (~1);
   s->dnpc = (src1 + imm) & (~1);
+  
   #ifdef CONFIG_FTRACE_COND
   int is_ret = -1;
     char *func_name = get_func_name(s->snpc - 4, s->dnpc, &is_ret);
