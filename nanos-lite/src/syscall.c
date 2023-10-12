@@ -10,7 +10,7 @@ void do_syscall(Context *c) {
 
   switch (a[0]) {
     case 0:
-      halt(1);
+      halt(0);
       break;
     case 1:
       yield();
