@@ -66,17 +66,7 @@ int _open(const char *path, int flags, mode_t mode) {
 
 int _write(int fd, void *buf, size_t count) {
   // _exit(SYS_write);
-  if(fd==1){
-    // stdout
-    int i=0;
-    while(i<count){
-      putch(*(buf+i));
-    }
-
-  }else if (fd==2){
-    // stderr
-  }
-  return 0;
+  _syscall_(SYS_write, fd, buf, count);
 }
 
 void *_sbrk(intptr_t increment) {

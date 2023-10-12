@@ -11,9 +11,9 @@ void do_syscall(Context *c) {
   printf("do syscall:%d\n",a[0]);
   switch (a[0]) {
     case 0:
-      printf("a[1]:%d\n",a[1]);
-      printf("a[2]:%d\n",a[2]);
-      printf("a[3]:%d\n",a[3]);
+      // printf("a[1]:%d\n",a[1]);
+      // printf("a[2]:%d\n",a[2]);
+      // printf("a[3]:%d\n",a[3]);
       halt(0);
       break;
     case 1:
@@ -21,9 +21,9 @@ void do_syscall(Context *c) {
       break;
     case 4:
       // do write
-      printf("a[1]:%d\n",a[1]);
-      printf("a[2]:%d\n",a[2]);
-      printf("a[3]:%d\n",a[3]);
+      // printf("a[1]:%d\n",a[1]);
+      // printf("a[2]:%d\n",a[2]);
+      // printf("a[3]:%d\n",a[3]);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
