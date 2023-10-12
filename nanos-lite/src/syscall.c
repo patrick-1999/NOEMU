@@ -1,15 +1,19 @@
 #include <common.h>
 #include "syscall.h"
 void halt(int code);
-// void write(uintptr_t *a){
-//   if(a[1]==1){
-//     // stdout
-//     putch();
-//   }
-//   if(a[1]==2){
-//     // stderror
-//   }
-// }
+void write(uintptr_t *a){
+  if(a[1]==1){
+    // stdout
+    char *buf = (char*)a[2];
+
+    for(int i=0;i<a[3];i++){
+      putch(*(buf+i));
+    }
+  }
+  if(a[1]==2){
+    // stderror
+  }
+}
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
