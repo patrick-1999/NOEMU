@@ -27,15 +27,6 @@ Context* __am_irq_handle(Context *c) {
         } else {
           // 如果有系统调用号就是系统调用
           ev.event = EVENT_SYSCALL;
-          switch (c->gpr[17])
-          {
-          case 1:
-            yield();
-            break;
-          
-          default:
-            break;
-          }
         }
         c->mepc += 4;     // skip the instruction that caused the trap
         // 根据造成这个ecall的成因判断是否需要给PC+4
