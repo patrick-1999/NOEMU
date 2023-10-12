@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+void halt(int code);
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -8,6 +9,9 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
 
   switch (a[0]) {
+    case 0:
+      halt(1);
+      break;
     case 1:
       yield();
       break;
