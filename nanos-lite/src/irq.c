@@ -1,9 +1,9 @@
 #include <common.h>
-
+void do_syscall(Context *c);
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
-    case 4 : 
-      panic("syscall number = %d", c->gpr[17]);
+    case 4:
+      do_syscall(c);
       break;
     default: panic("Unhandled event ID = %d", e.event);
   }
