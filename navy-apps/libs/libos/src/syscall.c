@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-
+# define ARGS_ARRAY ("ecall", "a7", "a0", "a1", "a2", "a0")
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -15,7 +15,6 @@
 #define _arg3(a0, a1, a2, a3, ...) a3
 #define _arg4(a0, a1, a2, a3, a4, ...) a4
 #define _arg5(a0, a1, a2, a3, a4, a5, ...) a5
-
 // extract an argument from the macro array
 #define SYSCALL  _args(0, ARGS_ARRAY)
 #define GPR1 _args(1, ARGS_ARRAY)
