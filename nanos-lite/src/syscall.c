@@ -20,7 +20,7 @@ void do_syscall(Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  printf("do syscall:%d\n",a[0]);
+  // printf("do syscall:%d\n",a[0]);
   switch (a[0]) {
     case 0:
       // printf("a[1]:%d\n",a[1]);
