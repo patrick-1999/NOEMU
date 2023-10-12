@@ -3,9 +3,9 @@
 
 void halt(int code);
 void write(uintptr_t *a){
-  printf("a1:%d\n",a[1]);
-  printf("a2:%x\n",a[2]);
-  printf("a3:%d\n",a[3]);
+  // printf("a1:%d\n",a[1]);
+  // printf("a2:%x\n",a[2]);
+  // printf("a3:%d\n",a[3]);
   if(a[1]==1){
     // stdout
     char *buf = (char*)a[2];
@@ -17,6 +17,9 @@ void write(uintptr_t *a){
   if(a[1]==2){
     // stderror
   }
+}
+void brk(uintptr_t *a){
+  a[3] = 0;
 }
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -35,6 +38,9 @@ void do_syscall(Context *c) {
     case 4:
       write(a);
       break;
+    case 9:
+      brk(a);
+    break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
