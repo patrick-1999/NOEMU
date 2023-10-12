@@ -33,9 +33,10 @@ void do_syscall(Context *c) {
       break;
     case 4:
       // do write
-      printf("a[1]:%d\n",a[1]);
-      printf("a[2]:%x\n",a[2]);
-      printf("a[3]:%d\n",a[3]);
+      write(a);
+      // printf("a[1]:%d\n",a[1]);
+      // printf("a[2]:%x\n",a[2]);
+      // printf("a[3]:%d\n",a[3]);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }

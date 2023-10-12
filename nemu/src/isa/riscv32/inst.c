@@ -359,7 +359,7 @@ word_t isa_csrrw(word_t dest, word_t src1, word_t csr) {
 void ecall_helper(Decode *s) {
 
   s->dnpc = isa_raise_intr(0xb, cpu.pc);
-  printf("ECALL from PC %02x to PC:%02x\n", cpu.pc, s->dnpc);
+  // printf("ECALL from PC %02x to PC:%02x\n", cpu.pc, s->dnpc);
 }
 
 
