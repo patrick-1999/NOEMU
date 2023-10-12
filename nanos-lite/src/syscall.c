@@ -3,6 +3,9 @@
 
 void halt(int code);
 void write(uintptr_t *a){
+  printf("a1:%d\n",a[1]);
+  printf("a2:%d\n",a[2]);
+  printf("a3:%d\n",a[3]);
   if(a[1]==1){
     // stdout
     char *buf = (char*)a[2];
@@ -22,7 +25,6 @@ void do_syscall(Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   // printf("do syscall:%d\n",a[0]);
-  Log("do syscall:%d\n",a[0]);
   switch (a[0]) {
     case 0:
       halt(0);
