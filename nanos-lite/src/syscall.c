@@ -4,7 +4,7 @@
 void halt(int code);
 void write(uintptr_t *a){
   printf("a1:%d\n",a[1]);
-  printf("a2:%d\n",a[2]);
+  printf("a2:%x\n",a[2]);
   printf("a3:%d\n",a[3]);
   if(a[1]==1){
     // stdout
