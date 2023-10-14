@@ -19,7 +19,8 @@ void write(uintptr_t *a){
   }
 }
 void brk(uintptr_t *a){
-  a[3] = 0;
+  // *a[2]= *a[2]+a[1];
+  a[3]=0;
 }
 void do_syscall(Context *c) {
   uintptr_t a[4];
