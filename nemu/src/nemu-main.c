@@ -30,6 +30,6 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-  printf("%d\n",nemu_state.state);
+  printf("%d\n",is_exit_status_bad());
   return is_exit_status_bad();
 }
