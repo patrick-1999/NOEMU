@@ -8,26 +8,35 @@
 # define Elf_Ehdr Elf32_Ehdr
 # define Elf_Phdr Elf32_Phdr
 #endif
+enum {SEEK_SET, SEEK_CUR, SEEK_END};
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t get_ramdisk_size();
+int fs_open(const char *pathname, int flags, int mode);
+int fs_close(int fd);
+size_t fs_read(int fd, void *buf, size_t len);
+size_t fs_write(int fd, const void *buf, size_t len);
+size_t fs_lseek(int fd, size_t offset, int whence);
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  // 现在的代码存储在ramdisk中，我们需要解析elf文件，将其需要执行的部分加载到内存中并且返回开始执行代码的入口地址
-  Elf_Ehdr ehdr;
-  ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
-  //通过魔数来判断是否是一个elf文件 check valid elf 
-  assert((*(uint32_t *)ehdr.e_ident == 0x464c457f));
-
-  Elf_Phdr phdr[ehdr.e_phnum];
-  ramdisk_read(phdr, ehdr.e_phoff, sizeof(Elf_Phdr)*ehdr.e_phnum);
-  for (int i = 0; i < ehdr.e_phnum; i++) {
-    if (phdr[i].p_type == PT_LOAD) {
-      ramdisk_read((void*)phdr[i].p_vaddr, phdr[i].p_offset, phdr[i].p_memsz);
-      // 这句代码实现将代码程序读入到内存中，起始地址是p_vaddr,长度为p_memsz
-      // set .bss with zeros
-      memset((void*)(phdr[i].p_vaddr+phdr[i].p_filesz), 0, phdr[i].p_memsz - phdr[i].p_filesz);
-      // 因为对齐会在导致文件大小和内存中的大小不一致，内存中在最后会添加0补齐
+  assert(get_ramdisk_size() > 0);
+  int fd = fs_open(filename, 0, 0);
+  Elf_Ehdr elf;
+  fs_read(fd, &elf, sizeof(elf));
+  Log("magic = %x", *(uint32_t *)elf.e_ident);
+  assert(*(uint32_t *)elf.e_ident == 0x464c457f);       // "\x7fELF" in little endian
+  
+  Elf_Phdr ph;
+  for (int i = 0; i < elf.e_phnum; i++) {
+    fs_lseek(fd, elf.e_phoff + i * sizeof(ph), SEEK_SET);
+    fs_read(fd, &ph, sizeof(ph));
+    if (ph.p_type == PT_LOAD) {
+      Log("ph.p_vaddr = 0x%x ph.p_offset = 0x%x ph.p_filesz = 0x%x", ph.p_vaddr, ph.p_offset, ph.p_filesz);
+      // ramdisk_read((void *)ph.p_vaddr, ph.p_offset, ph.p_filesz);
+      fs_lseek(fd, ph.p_offset, SEEK_SET);
+      fs_read(fd, (void*)(intptr_t)(ph.p_vaddr), ph.p_filesz);
+      memset((void *)(ph.p_vaddr + ph.p_filesz), 0, ph.p_memsz - ph.p_filesz);
     }
   }
-  return ehdr.e_entry;
+  return elf.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
