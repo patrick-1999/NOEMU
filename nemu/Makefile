@@ -39,6 +39,8 @@ SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find -L $(DIRS-BLACKLIST-y) -name 
 $(info DIRS-BLACKLIST-y)
 $(info $(DIRS-BLACKLIST-y))
 
+$(info DIRS-y)
+$(info $(DIRS-y))
 SRCS-y += $(shell find -L $(DIRS-y) -name "*.c")
 $(info SRCS-y)
 $(info $(SRCS-y))
