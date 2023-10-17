@@ -39,10 +39,9 @@ SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find -L $(DIRS-BLACKLIST-y) -name 
 $(info DIRS-BLACKLIST-y)
 $(info $(DIRS-BLACKLIST-y))
 SRCS-y += $(shell find -L $(DIRS-y) -name "*.c")
+SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
 $(info SRCS)
 $(info $(SRCS))
-SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
-
 # Extract compiler and options from menuconfig
 CC = $(call remove_quote,$(CONFIG_CC))
 # $(info $(CONFIG_CC))
