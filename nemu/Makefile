@@ -36,12 +36,16 @@ include $(FILELIST_MK)
 # Filter out directories and files in blacklist to obtain the final set of source files
 DIRS-BLACKLIST-y += $(DIRS-BLACKLIST)
 SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find -L $(DIRS-BLACKLIST-y) -name "*.c")
+$(info DIRS-BLACKLIST-y)
+$(info $(DIRS-BLACKLIST-y))
 SRCS-y += $(shell find -L $(DIRS-y) -name "*.c")
+$(info SRCS)
+$(info $(SRCS))
 SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
 
 # Extract compiler and options from menuconfig
 CC = $(call remove_quote,$(CONFIG_CC))
-$(info $(CONFIG_CC))
+# $(info $(CONFIG_CC))
 CFLAGS_BUILD += $(call remove_quote,$(CONFIG_CC_OPT))
 CFLAGS_BUILD += $(if $(CONFIG_CC_LTO),-flto,)
 CFLAGS_BUILD += $(if $(CONFIG_CC_DEBUG),-Og -ggdb3,)
