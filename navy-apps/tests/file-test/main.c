@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <assert.h>
 
 int main() {
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
   printf("/share/files/num:file opened\n");
+  write(1, "Hello World!\n", 13);
 
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
@@ -41,6 +43,7 @@ int main() {
   fclose(fp);
 
   printf("PASS!!!\n");
+  write(1, "Hello World!\n", 13);
 
   return 0;
 }
