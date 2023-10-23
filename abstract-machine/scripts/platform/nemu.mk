@@ -30,7 +30,8 @@ run: image
     # $(info $(ISA))
     # $(info $(NEMUFLAGS))
     # $(info $(IMAGE))
-	$(MAKE) -s -C  $(NEMU_HOME) ISA=$(ISA) run ARGS="$(NEMUFLAGS)" IMG=$(IMAGE).bin
+	$(MAKE) -s -C  $(NEMU_HOME) ISA=$(ISA) run ARGS="$(NEMUFLAGS)" IMG=/home/rlk/rlk/pxh/ics2023/am-kernels/tests/cpu-tests/tests/test/demo.bin
+    
 
 gdb: image
 	$(MAKE) -C $(NEMU_HOME) ISA=$(ISA) gdb ARGS="$(NEMUFLAGS)" IMG=$(IMAGE).bin
