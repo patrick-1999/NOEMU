@@ -24,6 +24,6 @@ void halt(int code) {
 void _trm_init() {
   int ret = main(mainargs);
   printf("%x\n",heap.start);
-  printf("%x\n",heap.start);
+  printf("%x\n",heap.end);
   halt(ret);
 }
