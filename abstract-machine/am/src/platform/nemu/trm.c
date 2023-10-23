@@ -17,13 +17,13 @@ void putch(char ch) {
 
 void halt(int code) {
   nemu_trap(code);
-  printf("%x\n",heap.start);
-  printf("%x\n",heap.start);
   // should not reach here
   while (1);
 }
 
 void _trm_init() {
   int ret = main(mainargs);
+  printf("%x\n",heap.start);
+  printf("%x\n",heap.start);
   halt(ret);
 }
