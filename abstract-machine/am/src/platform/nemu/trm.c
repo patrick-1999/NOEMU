@@ -1,5 +1,6 @@
 #include <am.h>
 #include <nemu.h>
+#include <stdio.h>
 
 extern char _heap_start;
 int main(const char *args);
@@ -16,7 +17,8 @@ void putch(char ch) {
 
 void halt(int code) {
   nemu_trap(code);
-
+  printf("%x\n",heap.start);
+  printf("%x\n",heap.start);
   // should not reach here
   while (1);
 }
