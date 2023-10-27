@@ -4,6 +4,7 @@
 
 int main() {
   write(1, "Hello World!\n", 13);
+  printf("fp:\n");
   FILE *fp = fopen("/share/files/num", "r+");
   printf("fp:%d\n",fp);
   assert(fp);
