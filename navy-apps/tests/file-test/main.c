@@ -5,9 +5,8 @@
 int main() {
   write(1, "Hello World!\n", 13);
   FILE *fp = fopen("/share/files/num", "r+");
-  printf("fp.fd:%d\n",fp->_file);
   assert(fp);
-  printf("/share/files/num:file opened\n");
+  // printf("/share/files/num:file opened\n");
   // write(1, "Hello World!\n", 13);
 
   // fseek(fp, 0, SEEK_END);
