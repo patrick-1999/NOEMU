@@ -23,6 +23,7 @@ int NDL_PollEvent(char *buf, int len) {
   // printf("evtdev:%d\n",evtdev);
   buf[0]='\0';
   assert(evtdev!=-1);
+  printf("NDL_PollEvent");
   return read(evtdev, buf, len);
 }
 
