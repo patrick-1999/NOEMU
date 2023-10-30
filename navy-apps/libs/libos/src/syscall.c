@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
+
+
 # define ARGS_ARRAY ("ecall", "a7", "a0", "a1", "a2", "a0")
 // helper macros
 #define _concat(x, y) x ## y
@@ -53,7 +55,6 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   asm volatile (SYSCALL : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
   return ret;
 }
-
 void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
   while (1);
@@ -99,8 +100,7 @@ off_t _lseek(int fd, off_t offset, int whence) {
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
-  _exit(SYS_gettimeofday);
-  return 0;
+  return _syscall_(SYS_gettimeofday,(intptr_t)tv,(intptr_t)tz,0);
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {

@@ -1,6 +1,9 @@
 #include <common.h>
 #include "fs.h"
 #include "syscall.h"
+#include <sys/time.h>
+
+
 
 void halt(int code);
 int fs_open(const char *pathname, int flags, int mode);
@@ -24,6 +27,14 @@ void write(uintptr_t *a){
   if(a[1]==2){
     // stderror
   }
+}
+
+int fs_gettimeofday(struct timeval *tv, struct timezone *tz) {
+  uint64_t uptime=0;
+  ioe_read(AM_TIMER_UPTIME, &uptime);
+  tv->tv_usec = (int32_t)uptime;
+  tv->tv_sec = (int32_t)uptime / 1000000;
+  return 0;
 }
 
 void do_syscall(Context *c) {
@@ -59,6 +70,9 @@ void do_syscall(Context *c) {
       break;
     case SYS_brk:
       c->GPRx = 0; 
+    break;
+    case SYS_gettimeofday:
+      c->GPRx = fs_gettimeofday((struct timeval *)a[1], (struct timezone *)a[2]); 
     break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
