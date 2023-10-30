@@ -26,7 +26,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, 0,invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, 0,invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, 0,invalid_read, serial_write},
-  [FD_FB]     = {"/dev/fb", 0, 0, 0, events_read, invalid_write},
+  [FD_FB]     = {"/dev/fb", 0, 0, 0, events_read, invalid_write},//FrameBuffer和显示相关
 #include "files.h"
 };
 int get_fs_len(){
@@ -63,7 +63,6 @@ int fs_close(int fd){
 }
 size_t fs_read(int fd, void *buf, size_t len){
 
-printf("fd:%d",fd);
 assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
 
   Finfo *f = &file_table[fd];

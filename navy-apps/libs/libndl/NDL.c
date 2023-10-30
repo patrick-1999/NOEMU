@@ -4,8 +4,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <assert.h>
 
-static int evtdev = -1;
+// static int evtdev = -1;
+static int evtdev = 3;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
@@ -19,6 +21,8 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   printf("evtdev:%d\n",evtdev);
+  buf[0]='\0';
+  assert(evtdev!=-1);
   return read(evtdev, buf, len);
 }
 
