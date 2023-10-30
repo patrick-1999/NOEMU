@@ -183,8 +183,10 @@ int open(const char *path, int flags, ...) {
 
 ssize_t read(int fd, void *buf, size_t count) {
   if (fd == dispinfo_fd) {
+    printf("1");
     return snprintf((char *)buf, count, "WIDTH: %d\nHEIGHT: %d\n", disp_w, disp_h);
   } else if (fd == evt_fd) {
+    printf("2");
     int has_key = 0;
     SDL_Event ev = {};
     SDL_LockMutex(key_queue_lock);
@@ -206,12 +208,14 @@ ssize_t read(int fd, void *buf, size_t count) {
     }
     return 0;
   } else if (fd == sbctl_fd) {
+    printf("3");
     // return the free space of sb_fifo
     int used;
     ioctl(sb_fifo[0], FIONREAD, &used);
     int free = pipe_size - used;
     return snprintf((char *)buf, count, "%d", free);
   }
+  printf("4");
   return glibc_read(fd, buf, count);
 }
 
