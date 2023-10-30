@@ -23,6 +23,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 static AM_INPUT_KEYBRD_T ev;
 char *strncat(char *dst, const char *src, size_t n);
+
 size_t events_read(void *buf, size_t offset, size_t len) {
   ioe_read(AM_INPUT_KEYBRD, &ev);
   // if (ev.keycode != AM_KEY_NONE) {
