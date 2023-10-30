@@ -63,6 +63,7 @@ int fs_close(int fd){
 }
 size_t fs_read(int fd, void *buf, size_t len){
 
+printf("fd:%d",fd);
 assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
 
   Finfo *f = &file_table[fd];
