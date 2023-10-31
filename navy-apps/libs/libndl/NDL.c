@@ -113,6 +113,7 @@ int NDL_Init(uint32_t flags) {
   // fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
   char * buf[20]={};
   dispinfo_read(buf,0,0);
+  printf("buf:%s\n",buf);
   sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
 
   printf("NDL_Init, disp_size.w=%d, disp_size.h=%d\n", disp_size.w, disp_size.h);
