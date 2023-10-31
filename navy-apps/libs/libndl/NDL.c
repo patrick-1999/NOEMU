@@ -107,15 +107,9 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  // FILE *fp = fopen("/proc/dispinfo", "w");
-  // char * buf;
-  // assert(fp != NULL);
-  // fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
-  char * buf[20]={};
-  dispinfo_read(buf,0,0);
-  printf("buf:%s\n",buf);
-  sscanf(buf,"WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
-
+  FILE *fp = fopen("/proc/dispinfo", "r");
+  assert(fp != NULL);
+  fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
   printf("NDL_Init, disp_size.w=%d, disp_size.h=%d\n", disp_size.w, disp_size.h);
   assert(disp_size.w >= 400 && disp_size.w <= 800);
   assert(disp_size.h >= 300 && disp_size.h <= 640);

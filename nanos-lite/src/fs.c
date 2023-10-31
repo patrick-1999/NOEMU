@@ -33,7 +33,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout", 0, 0, 0,invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, 0,invalid_read, serial_write},
   [FD_FB]     = {"/dev/fb", 0, 0, 0, events_read, invalid_write},//FrameBuffer和显示相关
-  [FD_DISINFO] = {"/proc/dispinfo", 0, 0, 0, dispinfo_read, invalid_write},
+  [FD_DISINFO] = {"/proc/dispinfo", 0, 20, 0, dispinfo_read, invalid_write},
   [FD_VGA] = {"/dev/fb", 0, 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
