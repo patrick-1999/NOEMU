@@ -1,4 +1,6 @@
 #include <fs.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define NR_FILE (sizeof(file_table) / sizeof(file_table[0]))
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
@@ -136,9 +138,12 @@ void init_fs() {
 
   AM_GPU_CONFIG_T gpu_config;
   ioe_read(AM_GPU_CONFIG,&gpu_config);
+  char buf [20]={};
+  memset(buf,0,sizeof(buf));
+  dispinfo_read(buf,0,0);
+  int dispinfo = fs_open("/proc/dispinfo", 0, 0);
+  fs_write(dispinfo, buf, sizeof(*buf));
   int width = gpu_config.width, height = gpu_config.height;
-  printf("width:%d",width);
-  printf("height:%d",height);
   int fb_fd = fs_open("/dev/fb", 0, 0);
   // 主要工作是改写文件表中fb_fd的文件大小
   file_table[fb_fd].size = width * height;

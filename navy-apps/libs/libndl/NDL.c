@@ -6,6 +6,9 @@
 #include <sys/time.h>
 #include <assert.h>
 
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+
+
 // static int evtdev = -1;
 static int evtdev = 3;
 static int fbdev = 5;
@@ -104,7 +107,8 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  FILE *fp = fopen("/proc/dispinfo", "r");
+  FILE *fp = fopen("/proc/dispinfo", "w");
+  char * buf;
   assert(fp != NULL);
   fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
   printf("NDL_Init, disp_size.w=%d, disp_size.h=%d\n", disp_size.w, disp_size.h);
