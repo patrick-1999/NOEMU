@@ -8,8 +8,15 @@
 
 // static int evtdev = -1;
 static int evtdev = 3;
-static int fbdev = -1;
+static int fbdev = 5;
 static int screen_w = 0, screen_h = 0;
+
+typedef struct size
+{
+  int w;
+  int h;
+} Size;
+Size disp_size;
 
 uint32_t NDL_GetTicks() {
     // 以毫秒为单位返回系统时间
@@ -44,10 +51,40 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+ if (*w == 0 && *h == 0)
+  {
+    *w = disp_size.w;
+    *h = disp_size.h;
+  }
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  if (w == 0 && h == 0)
+  {
+    w = disp_size.w;
+    h = disp_size.h;
+  }
+  // printf("NDL_DrawRect, x=%d, y=%d, w=%d, h=%d\n", x, y, w, h);
+
+  assert(w > 0 && w <= disp_size.w);
+  assert(h > 0 && h <= disp_size.h);
+
+  // w, h 为画布大小， 重新设置x，y的值以居中显示画布
+  x = (disp_size.w - w) / 2;
+  y = (disp_size.h - h) / 2;
+  
+  for (size_t row = 0; row < h; ++row)
+  {
+    lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
+    write(fbdev, pixels + row * w, w);
+  }
+  write(fbdev, 0, 0);
+
 }
+
+
+
+
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
 }
@@ -67,6 +104,13 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  FILE *fp = fopen("/proc/dispinfo", "r");
+  assert(fp != NULL);
+  fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
+  printf("NDL_Init, disp_size.w=%d, disp_size.h=%d\n", disp_size.w, disp_size.h);
+  assert(disp_size.w >= 400 && disp_size.w <= 800);
+  assert(disp_size.h >= 300 && disp_size.h <= 640);
+  // fclose(fp);
   return 0;
 }
 
