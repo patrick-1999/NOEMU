@@ -137,6 +137,8 @@ void init_fs() {
   AM_GPU_CONFIG_T gpu_config;
   ioe_read(AM_GPU_CONFIG,&gpu_config);
   int width = gpu_config.width, height = gpu_config.height;
+  printf("width:%d",width);
+  printf("height:%d",height);
   int fb_fd = fs_open("/dev/fb", 0, 0);
   // 主要工作是改写文件表中fb_fd的文件大小
   file_table[fb_fd].size = width * height;
