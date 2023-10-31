@@ -102,6 +102,7 @@ printf("2\n");
     }
 printf("3\n");
     if (len == 0) return 0;
+    printf("3.5\n");
     if (f->open_offset >= f->size) return 0;
 
     if (len + f->open_offset > f->size) len = f->size - f->open_offset;
