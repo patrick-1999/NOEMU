@@ -143,11 +143,15 @@ void init_fs() {
   AM_GPU_CONFIG_T gpu_config;
   ioe_read(AM_GPU_CONFIG,&gpu_config);
   char buf [20]={};
+  int fb_dispinfo = fs_open("/proc/dispinfo", 0, 0);
+  file_table[fb_dispinfo].size = sizeof(buf);
+
   memset(buf,0,sizeof(buf));
   dispinfo_read(buf,0,0);
   int dispinfo = fs_open("/proc/dispinfo", 0, 0);
   int len = fs_write(dispinfo, buf, sizeof(*buf));
   printf("write_len:%d",len);
+
   int width = gpu_config.width, height = gpu_config.height;
   int fb_fd = fs_open("/dev/fb", 0, 0);
   // 主要工作是改写文件表中fb_fd的文件大小
