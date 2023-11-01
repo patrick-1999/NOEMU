@@ -106,7 +106,6 @@ size_t fs_write(int fd, const void *buf, size_t len){
     if (f->write == NULL) {   // 普通文件，用ramdisk写
         return ramdisk_write(buf, offset, len);
     } else {
-        printf("fb_write\n");
         return f->write(buf, offset, len);
     }
 }
