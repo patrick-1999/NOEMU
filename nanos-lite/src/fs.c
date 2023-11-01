@@ -95,12 +95,14 @@ assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
 size_t fs_write(int fd, const void *buf, size_t len){
     assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
     Finfo *f = &file_table[fd];
+    printf("11\n");
     if (fd == FD_STDOUT || fd == FD_STDERR) {
         return f->write(buf, 0, len);
     }
     if (len == 0) return 0;
+    printf("2\n");
     if (f->open_offset >= f->size) return 0;
-    printf("here\n");
+    printf("3\n");
     if (len + f->open_offset > f->size) len = f->size - f->open_offset;
     size_t offset = f->disk_offset + f->open_offset;
     f->open_offset += len;
