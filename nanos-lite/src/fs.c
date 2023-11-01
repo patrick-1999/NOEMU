@@ -93,9 +93,6 @@ assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
   }
 }
 size_t fs_write(int fd, const void *buf, size_t len){
-    if(fd==5){
-      printf("bufL:%s\n",(char *)buf);
-    }
     assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
     Finfo *f = &file_table[fd];
     if (fd == FD_STDOUT || fd == FD_STDERR) {
@@ -103,13 +100,14 @@ size_t fs_write(int fd, const void *buf, size_t len){
     }
     if (len == 0) return 0;
     if (f->open_offset >= f->size) return 0;
-
+    printf("here\n");
     if (len + f->open_offset > f->size) len = f->size - f->open_offset;
     size_t offset = f->disk_offset + f->open_offset;
     f->open_offset += len;
     if (f->write == NULL) {   // 普通文件，用ramdisk写
         return ramdisk_write(buf, offset, len);
     } else {
+        printf("fb_write\n");
         return f->write(buf, offset, len);
     }
 }
