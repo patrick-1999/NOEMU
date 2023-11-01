@@ -138,10 +138,6 @@ void init_fs() {
   int fb_dispinfo = fs_open("/proc/dispinfo", 0, 0);
   file_table[fb_dispinfo].size = sizeof(*buf);
   fs_read(fb_dispinfo, buf, sizeof(*buf));
-  // dispinfo_read(buf,0,0);
-  printf("buf:%s\n",buf);
-
-
   int width = gpu_config.width, height = gpu_config.height;
   int fb_fd = fs_open("/dev/fb", 0, 0);
   // 主要工作是改写文件表中fb_fd的文件大小
