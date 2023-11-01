@@ -131,7 +131,7 @@ size_t fs_lseek(int fd, size_t offset, int whence){
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-
+  // init /proc/dispinfo
   AM_GPU_CONFIG_T gpu_config;
   ioe_read(AM_GPU_CONFIG,&gpu_config);
   char buf [20]={};
@@ -139,6 +139,7 @@ void init_fs() {
   file_table[fb_dispinfo].size = sizeof(*buf);
   fs_read(fb_dispinfo, buf, sizeof(*buf));
   int width = gpu_config.width, height = gpu_config.height;
+  // initialize the size of /dev/fb
   int fb_fd = fs_open("/dev/fb", 0, 0);
   // 主要工作是改写文件表中fb_fd的文件大小
   file_table[fb_fd].size = width * height;
