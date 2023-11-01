@@ -85,7 +85,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  printf("fb_write\n");
+  printf("fb_write len=%d\n",len);
   if (len == 0)
   {
     printf("len==0");
