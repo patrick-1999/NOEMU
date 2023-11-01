@@ -145,8 +145,8 @@ void init_fs() {
   fs_read(fb_dispinfo, buf, sizeof(*buf));
   int width = gpu_config.width, height = gpu_config.height;
   // initialize the size of /dev/fb
-  int fb_fd = fs_open("/dev/fb", 0, 0);
-  printf("fb_fd:%d\n",fb_fd);
+  // int fb_fd = fs_open("/dev/fb", 0, 0);
+  int fb_fd =5;
   // 主要工作是改写文件表中fb_fd的文件大小
   file_table[fb_fd].size = width * height;
   printf("NR_FILE:%d\n",NR_FILE);
