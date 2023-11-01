@@ -136,8 +136,9 @@ void init_fs() {
   ioe_read(AM_GPU_CONFIG,&gpu_config);
   char buf [20]={};
   int fb_dispinfo = fs_open("/proc/dispinfo", 0, 0);
+  file_table[fb_dispinfo].size = sizeof(*buf);
   fs_read(fb_dispinfo, buf, sizeof(*buf));
-  dispinfo_read(buf,0,0);
+  // dispinfo_read(buf,0,0);
   printf("buf:%s\n",buf);
 
 
