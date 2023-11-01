@@ -101,6 +101,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   gpu_fbdraw.x = offset % width;
   gpu_fbdraw.y = offset / width;
   gpu_fbdraw.sync = 0;
+  printf("pixel:%s\n",gpu_fbdraw.pixels);
   ioe_write(AM_GPU_FBDRAW, &gpu_fbdraw);
 
   return len;
