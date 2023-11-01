@@ -137,6 +137,7 @@ void init_fs() {
   char buf [20]={};
   int fb_dispinfo = fs_open("/proc/dispinfo", 0, 0);
   fs_read(fb_dispinfo, buf, sizeof(*buf));
+  dispinfo_read(buf,0,0);
   printf("buf:%s\n",buf);
 
 
