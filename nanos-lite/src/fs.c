@@ -94,24 +94,16 @@ assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
 }
 size_t fs_write(int fd, const void *buf, size_t len){
     assert(fd >= 0 && fd < sizeof(file_table) / sizeof(Finfo));
-printf("1\n");
     Finfo *f = &file_table[fd];
-printf("2\n");
     if (fd == FD_STDOUT || fd == FD_STDERR) {
         return f->write(buf, 0, len);
     }
-printf("3\n");
     if (len == 0) return 0;
-    printf("3.5\n");
-    printf("f->open_offset:%d\n",f->open_offset);
-    printf("f->size:%d\n",f->size);
     if (f->open_offset >= f->size) return 0;
 
     if (len + f->open_offset > f->size) len = f->size - f->open_offset;
-printf("4\n");
     size_t offset = f->disk_offset + f->open_offset;
     f->open_offset += len;
-printf("5\n");
     if (f->write == NULL) {   // 普通文件，用ramdisk写
         return ramdisk_write(buf, offset, len);
     } else {
