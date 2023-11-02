@@ -25,7 +25,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(&pcb_boot,"/bin/menu");
+  naive_uload(&pcb_boot,"/bin/nterm");
 }
 
 Context* schedule(Context *prev) {
