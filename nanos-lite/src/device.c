@@ -85,14 +85,11 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  printf("fb_write len=%d\n",len);
   if (len == 0)
   {
-    printf("len==0");
     gpu_fbdraw.sync = 1;
     gpu_fbdraw.w = 0;
     gpu_fbdraw.h = 0;
-    printf("gpu_fbdraw.pixels:%d",(int)gpu_fbdraw.pixels);
     ioe_write(AM_GPU_FBDRAW, &gpu_fbdraw);
     return 0;
   }
