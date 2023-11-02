@@ -75,16 +75,16 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // w, h 为画布大小， 重新设置x，y的值以居中显示画布
   // x = (disp_size.w - w) / 2;
   // y = (disp_size.h - h) / 2;
-  
+  int count=0;
   for (size_t row = 0; row < h; ++row)
   {
     lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
     write(fbdev, pixels + row * w, w);
-    
+    count +=w;
     printf("write img\n");
     printf("write buf:%s\n",(char *)(pixels + row * w));
   }
-  
+  printf("count:%d\n",count);
   write(fbdev, 0, 0);
   printf("flush\n");
 
