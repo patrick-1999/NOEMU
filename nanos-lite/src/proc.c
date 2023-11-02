@@ -25,7 +25,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(&pcb_boot,"/bin/bmp-test");
+  naive_uload(&pcb_boot,"/bin/nslider");
 }
 
 Context* schedule(Context *prev) {
