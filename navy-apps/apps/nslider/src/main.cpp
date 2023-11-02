@@ -47,11 +47,9 @@ void next(int rep) {
 int main() {
   SDL_Init(0);
   SDL_Surface *screen = SDL_SetVideoMode(W, H, 32, SDL_HWSURFACE);
-
   int rep = 0, g = 0;
 
   render();
-
   while (1) {
     SDL_Event e;
     SDL_WaitEvent(&e);

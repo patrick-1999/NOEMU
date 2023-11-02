@@ -80,7 +80,9 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   {
     lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
     write(fbdev, pixels + row * w, w);
+    
     printf("write img\n");
+    printf("write buf:%s\n",(char *)(pixels + row * w));
   }
   
   write(fbdev, 0, 0);
