@@ -82,9 +82,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     write(fbdev, pixels + row * w, w);
     count +=w;
     printf("write img\n");
-    printf("write buf:%s\n",(char *)(pixels + row * w));
   }
-  printf("count:%d\n",count);
   write(fbdev, 0, 0);
   printf("flush\n");
 
