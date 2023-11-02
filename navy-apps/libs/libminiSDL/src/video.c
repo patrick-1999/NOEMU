@@ -13,7 +13,44 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+assert(s);
+  if (w == 0 && h == 0) {
+    w = s->w;
+    h = s->h;
+  }
+  uint32_t len = w * h;
+  uint32_t *buf = malloc(sizeof(uint32_t) * len);
+  uint32_t start_pos = x + y * s->w;
+  uint32_t i = 0;
+  for (size_t row = 0; row < h; ++row) {
+    for (size_t col = 0; col < w; ++col) {
+      // 1. calculate the offset of the pixel in the surface
+      uint32_t offset = col + row * s->w;
+
+      // 2. determine the pixel format
+      if (s->format->BitsPerPixel == 32) {
+        // 3. get the pixel value
+        uint32_t pixel = s->pixels[start_pos + 4 * offset];
+        // 4. convert the pixel format
+        buf[i++] = s->pixels[start_pos + 4 * offset + 3] << 24 | s->pixels[start_pos + 4 * offset + 2] << 16 | s->pixels[start_pos + 4 * offset + 1] << 8 | s->pixels[start_pos + 4 * offset];
+      }
+      else if (s->format->BitsPerPixel == 8) {
+        uint8_t pixel = s->pixels[start_pos + offset];
+        SDL_Color rgba_color = s->format->palette->colors[pixel];
+        buf[i++] = rgba_color.a << 24 | rgba_color.r << 16 | rgba_color.g << 8 | rgba_color.b;
+      }
+      else {
+        panic("unsupported pixel bites %d!\n", s->format->BitsPerPixel);
+      }
+    }
+  }
+  NDL_DrawRect(buf, x, y, w, h);
+  free(buf);
 }
+
+
+
+
 
 // APIs below are already implemented.
 
