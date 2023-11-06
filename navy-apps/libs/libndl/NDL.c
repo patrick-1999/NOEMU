@@ -76,13 +76,22 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // x = (disp_size.w - w) / 2;
   // y = (disp_size.h - h) / 2;
   int count=0;
-  for (size_t row = 0; row < h; ++row)
+  // for (size_t row = 0; row < h; ++row)
+  // {
+  //   lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
+  //   write(fbdev, pixels + row * w, w);
+  //   count +=w;
+  //   printf("write img\n");
+  // }
+    for (size_t row = 0; row < 10; ++row)
   {
     lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
     write(fbdev, pixels + row * w, w);
     count +=w;
     printf("write img\n");
   }
+
+  printf("ready flush\n");
   write(fbdev, 0, 0);
   printf("flush\n");
 
@@ -110,9 +119,11 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  FILE *fp = fopen("/proc/dispinfo", "r");
-  assert(fp != NULL);
-  fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
+  // FILE *fp = fopen("/proc/dispinfo", "r");
+  // assert(fp != NULL);
+  // fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
+  disp_size.w = 400;
+  disp_size.h = 300;
   printf("NDL_Init, disp_size.w=%d, disp_size.h=%d\n", disp_size.w, disp_size.h);
   assert(disp_size.w >= 400 && disp_size.w <= 800);
   assert(disp_size.h >= 300 && disp_size.h <= 640);
