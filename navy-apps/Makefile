@@ -98,31 +98,32 @@ ASFLAGS  +=  $(CFLAGS)
 ### Rule (compile): a single `.c` -> `.o` (gcc)
 $(DST_DIR)/%.o: %.c
 	@mkdir -p $(dir $@) && echo + CC $<
-	@$(CC) -std=gnu11 $(CFLAGS) -c -o $@ $(realpath $<)
+	$(info $@)
+	@$(CC) -std=gnu11 -ggdb3 $(CFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (compile): a single `.cc` -> `.o` (g++)
 $(DST_DIR)/%.o: %.cc
 	@mkdir -p $(dir $@) && echo + CXX $<
-	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
+	@$(CXX) -std=c++17 -ggdb3 $(CXXFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (compile): a single `.cpp` -> `.o` (g++)
 $(DST_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@) && echo + CXX $<
-	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
+	@$(CXX) -std=c++17 -ggdb3 $(CXXFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (compile): a single `.S` -> `.o` (gcc, which calls as)
 $(DST_DIR)/%.o: %.S
 	@mkdir -p $(dir $@) && echo + AS $<
-	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
+	@$(AS) $(ASFLAGS) -ggdb3 -c -o $@ $(realpath $<)
 
 ### Rule (recursive make): build dependent libraries (libc, libos, ...)
 libs:
-	@for t in $(LIBS); do $(MAKE) -s -C $(NAVY_HOME)/libs/$$t archive; done
+	@for t in $(LIBS); do $(MAKE) -s  -C  $(NAVY_HOME)/libs/$$t archive; done
 
 ### Rule (link): objects (`*.o`) and libraries (`*.a`) -> `$(APP)`, the final ELF binary to be packed into application (ld)
 $(APP): $(OBJS) libs
 	@echo + LD "->" $(shell realpath $@ --relative-to .)
-	@$(LD) $(LDFLAGS) -o $@ $(WL)--start-group $(LINKAGE) $(WL)--end-group
+	@$(LD) $(LDFLAGS)  -o $@ $(WL)--start-group $(LINKAGE) $(WL)--end-group
 
 ### Rule (archive): objects (`*.o`) -> `ARCHIVE.a` (ar)
 $(ARCHIVE): $(OBJS) libs

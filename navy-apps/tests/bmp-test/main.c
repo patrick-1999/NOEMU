@@ -2,7 +2,9 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <NDL.h>
+// #include "../../libs/libndl/include/NDL.h"
 #include <BMP.h>
+// #include "../../libs/libbmp/include/BMP.h"
 
 int main() {
   NDL_Init(0);
