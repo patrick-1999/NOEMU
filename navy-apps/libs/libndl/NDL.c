@@ -11,7 +11,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len);
 
 // static int evtdev = -1;
 static int evtdev = 3;
-static int fbdev = 5;
+static int fbdev = 4;
 static int screen_w = 0, screen_h = 0;
 
 typedef struct size
@@ -84,18 +84,14 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //   printf("write img\n");
   // }
   for (size_t row = 0; row < h; ++row)
-  { printf("1\n");
+  { 
     lseek(fbdev, x + (y + row) * disp_size.w, SEEK_SET);
-    printf("2\n");
     write(fbdev, pixels + row * w, w);
-    printf("3\n");
     count +=w;
-    printf("write img\n");
   }
-
-  printf("ready flush\n");
   write(fbdev, 0, 0);
   printf("flush\n");
+  
 
 }
 

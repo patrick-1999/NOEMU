@@ -36,8 +36,8 @@ static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 static int dummy_fd = -1;
-static int dispinfo_fd = 4;
-static int fb_memfd = 5;
+static int dispinfo_fd = 5;
+static int fb_memfd = 4;
 static int evt_fd = -1;
 static int sb_fifo[2] = {-1, -1};
 static int sbctl_fd = -1;
@@ -61,6 +61,7 @@ static inline void get_fsimg_path(char *newpath, const char *path) {
   if (scancode == SDL_SCANCODE_##k) name = #k;
 
 static void update_screen() {
+  printf("update_screen\n");
   SDL_UpdateTexture(texture, NULL, fb, disp_w * sizeof(Uint32));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
@@ -75,8 +76,9 @@ static SDL_mutex *key_queue_lock = NULL;
 static int event_thread(void *args) {
   SDL_Event event;
   while (1) {
+    printf("no event\n");
     SDL_WaitEvent(&event);
-
+    printf("get event:%d\n",event.type);
     switch (event.type) {
       case SDL_QUIT: exit(0); break;
       case SDL_USEREVENT: update_screen(); break;
@@ -113,6 +115,7 @@ static void open_display() {
 #else
   SDL_CreateWindowAndRenderer(disp_w * 2, disp_h * 2, 0, &window, &renderer);
 #endif
+
   SDL_SetWindowTitle(window, "Simulated Nanos Application");
   SDL_CreateThread(event_thread, "event thread", nullptr);
   SDL_AddTimer(1000 / FPS, timer_handler, NULL);
