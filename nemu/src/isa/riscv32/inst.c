@@ -159,6 +159,9 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, Reg(dest) = Csrrw(dest, src1, imm));
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, Ecall(s));
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr.mepc );
+  INSTPAT("0000001 ????? ????? 011 ????? 01100 11", mulhu  , R, uint64_t result = ((uint64_t)src1 * (uint64_t)src2); Reg(dest) = (uint32_t)(result >> 32));
+  INSTPAT("0000001 ????? ????? 000 ????? 01110 11", mulw   , R, int32_t result = (int32_t)(src1 * src2); Reg(dest) = result);
+
 
   //       0000000 01110 01111 010 00000 01000 11 
   //          0      14    15   2   0      8   3
