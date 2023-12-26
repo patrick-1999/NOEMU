@@ -96,7 +96,7 @@ assert(s);
     w = s->w;
     h = s->h;
   }
-  printf("s->w:%d,s->h:%d",s->w,s->h);
+  // printf("s->w:%d,s->h:%d",s->w,s->h);
   uint32_t len = w * h;
   uint32_t *buf = malloc(sizeof(uint32_t) * len);
   uint32_t start_pos = x + y * s->w;

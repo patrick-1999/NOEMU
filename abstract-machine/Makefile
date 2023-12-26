@@ -47,6 +47,8 @@ endif
 
 ### Create the destination directory (`build/$ARCH`)
 WORK_DIR  = $(shell pwd)
+$(info ------WORK_DIR---------)
+$(info $(WORK_DIR))
 DST_DIR   = $(WORK_DIR)/build/$(ARCH)
 $(shell mkdir -p $(DST_DIR))
 
@@ -134,6 +136,9 @@ $(LIBS): %:
 ### Rule (link): objects (`*.o`) and libraries (`*.a`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
 $(IMAGE).elf: $(OBJS) am $(LIBS)
 	@echo + LD "->" $(IMAGE_REL).elf
+	$(info -----------------------------)
+	$(info IMAGE: $(IMAGE))
+	$(info -----------------------------)
 	@$(LD) $(LDFLAGS) -o $(IMAGE).elf --start-group $(LINKAGE) --end-group 
 
 ### Rule (archive): objects (`*.o`) -> `ARCHIVE.a` (ar)
