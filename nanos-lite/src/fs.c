@@ -61,7 +61,7 @@ int fs_open(const char *pathname, int flags, int mode){
     
   }
   printf("file not found!!!\n");
-  printf("file path:%s",pathname);
+  printf("file path:%s\n",pathname);
   // assert(0);
   return -1;
 }
