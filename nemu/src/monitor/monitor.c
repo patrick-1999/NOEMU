@@ -27,7 +27,7 @@ void init_sdb();
 void init_disasm(const char *triple);
 void parse_elf(const char *elf_file);
 
-#define CONFIG_TRACE
+#define CONFIG_TRACE y
 static void welcome() {
   // printf("CONFIG_TRACE:%d\n",CONFIG_TRACE);
   Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
