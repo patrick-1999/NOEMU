@@ -65,7 +65,6 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   memset(context, 0, sizeof(Context));
   // 关键
   context->mepc = (uintptr_t)entry;
-  printf("context->mepc:%x\n",context->mepc);
   printf("entry:%x\n",entry);
 
   context->mstatus = 0x1800; 
