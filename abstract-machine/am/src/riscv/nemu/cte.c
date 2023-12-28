@@ -38,7 +38,7 @@ Context* __am_irq_handle(Context *c) {
       default: ev.event = EVENT_ERROR; break;
     }
     c = user_handler(ev, c);
-    printf("c->mepc:%d\n",c->mepc);
+    printf("c->mepc:%x\n",c->mepc);
     for (int volatile i = 0; i < 100000; i++) ;
     assert(c != NULL);
   }
@@ -64,7 +64,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   memset(context, 0, sizeof(Context));
   // 关键
   context->mepc = (uintptr_t)entry;
-  printf("entry:%d\n",entry);
+  printf("entry:%x\n",entry);
 
   context->mstatus = 0x1800; 
   // enable int after context switch, but not in trap
