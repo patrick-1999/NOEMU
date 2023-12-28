@@ -12,16 +12,10 @@
 #
 # See the Mulan PSL v2 for more details.
 #**************************************************************************************/
-$(info ---------FILELIST_MK---------)
-$(info CONFIG_ITRACE $(CONFIG_ITRACE))
-$(info CONFIG_IQUEU $(CONFIG_IQUEUE))
 
 ifneq ($(CONFIG_ITRACE)$(CONFIG_IQUEUE),)
 
 CXXSRC = src/utils/disasm.cc
 CXXFLAGS += $(shell llvm-config-11 --cxxflags) -fPIE
-$(info CXXSRC $(CXXSRC))
-$(info CXXFLAGS $(CXXFLAGS))
 LIBS += $(shell llvm-config-11 --libs)
-$(info LIBS $(LIBS))
 endif
