@@ -39,7 +39,7 @@ Context* __am_irq_handle(Context *c) {
     }
     c = user_handler(ev, c);
     printf("c->mepc:%x\n",c->mepc);
-    for (int volatile i = 0; i < 100000; i++) ;
+    for (int volatile i = 0; i < 1000000000; i++) ;
     assert(c != NULL);
   }
 
