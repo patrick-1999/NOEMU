@@ -56,10 +56,13 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   return true;
 }
 
+
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context* context = kstack.end - sizeof(Context);
   memset(context, 0, sizeof(Context));
+  // 关键
   context->mepc = (uintptr_t)entry;
+
   context->mstatus = 0x1800; 
   // enable int after context switch, but not in trap
   // so set mpie not mie, or the next intr may trigger intr though in trap
@@ -69,7 +72,6 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 }
 
 void yield() {
-  printf("yield\n");
 #ifdef __riscv_e
   asm volatile("li a5, -1; ecall");
 #else
