@@ -16,6 +16,7 @@ struct Context {
 #ifdef __riscv_e
 #define GPR1 gpr[15] // a5
 #else
+
 #define GPR1 gpr[17] // a7
 #endif
 
@@ -23,6 +24,6 @@ struct Context {
 #define GPR3 gpr[11]  //a1
 #define GPR4 gpr[12]  //a2
 // #define GPRx gpr[10]  //a0 存疑
-#define GPRx gpr[0]  //a0 存疑
+#define GPRx gpr[18]  //a0 存疑
 
 #endif
