@@ -39,6 +39,7 @@ Context* __am_irq_handle(Context *c) {
       default: ev.event = EVENT_ERROR; break;
     }
     c = user_handler(ev, c);
+    printf("user_handler-fun-address:%x\n",user_handler);
     printf("c->mepc:%x\n",c->mepc);
     for (int volatile i = 0; i < 10000000; i++) ;
     assert(c != NULL);
