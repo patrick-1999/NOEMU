@@ -25,7 +25,7 @@ Context* __am_irq_handle(Context *c) {
         if (c->gpr[17] == -1) {
           // 如果没有系统调用好是自陷
           ev.event = EVENT_YIELD;
-          printf("EVENT_YIELD\n");
+          // printf("EVENT_YIELD\n");
         } else {
           // 如果有系统调用号就是系统调用
           ev.event = EVENT_SYSCALL;
