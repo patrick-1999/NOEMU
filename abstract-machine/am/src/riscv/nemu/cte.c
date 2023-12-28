@@ -30,13 +30,13 @@ Context* __am_irq_handle(Context *c) {
           // 如果有系统调用号就是系统调用
           ev.event = EVENT_SYSCALL;
         }
-        c->mepc += 4;     // skip the instruction that caused the trap
+        // c->mepc += 4;     
+        // skip the instruction that caused the trap
         // 根据造成这个ecall的成因判断是否需要给PC+4
         // 有的时候例如缺页异常需要回到原来的指令执行就不用+4,如果要跳过触发异常的指令就可以+4
         break;
       default: ev.event = EVENT_ERROR; break;
     }
-    printf("__am_irq_handle_ev.event:%d\n",ev.event);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
