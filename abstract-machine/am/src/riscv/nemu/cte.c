@@ -1,6 +1,7 @@
 #include <am.h>
 #include <riscv/riscv.h>
 #include <klib.h>
+#include <stdio.h>
 
 #define Machine_external_interrupt 0xb
 
@@ -68,6 +69,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 }
 
 void yield() {
+  printf("yield\n");
 #ifdef __riscv_e
   asm volatile("li a5, -1; ecall");
 #else
