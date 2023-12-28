@@ -62,6 +62,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   memset(context, 0, sizeof(Context));
   // 关键
   context->mepc = (uintptr_t)entry;
+  printf("entry:%d\n",entry);
 
   context->mstatus = 0x1800; 
   // enable int after context switch, but not in trap
