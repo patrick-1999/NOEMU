@@ -63,10 +63,10 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context* context = kstack.end - sizeof(Context);
+  // 这里其实是分配到了一块内存空间而不是一个数字，其实应该说是这个数字表示的是一个地址的概念
   memset(context, 0, sizeof(Context));
   // 关键
   context->mepc = (uintptr_t)entry;
-  printf("entry:%x\n",entry);
 
   context->mstatus = 0x1800; 
   // enable int after context switch, but not in trap
